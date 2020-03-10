@@ -1,0 +1,6 @@
+{
+  "projects": {
+  	"ansible/roles/icon-prep": "https://github.com/insight-infrastructure/ansible-role-icon-prep "
+  }
+}
+
