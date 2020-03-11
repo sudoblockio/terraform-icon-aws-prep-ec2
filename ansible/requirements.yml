@@ -1,1 +1,7 @@
-- src: insight-infrastructure.icon-prep
+---
+#- src: insight-infrastructure.icon-prep
+
+- src: dev-sec.os-hardening
+  version: 5.2.1
+- src: dev-sec.ssh-hardening
+  version: 7.0.0

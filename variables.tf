@@ -28,7 +28,7 @@ variable "stage" {
 variable "network_name" {
   description = "The network name, ie kusama / mainnet"
   type        = string
-  default     = "main"
+  default     = "testnet"
 }
 
 variable "owner" {
@@ -60,7 +60,7 @@ variable "vpc_security_group_ids" {
 # ec2
 #####
 variable "key_name" {
-  description = "The key pair to import"
+  description = "The key pair to import - leave blank to generate new keypair from pub/priv ssh key path"
   type        = string
   default     = ""
 }
@@ -126,10 +126,36 @@ variable "volume_path" {
   default     = "/dev/xvdf"
 }
 
+variable "logs_bucket_enable" {
+  description = "Create bucket to put logs"
+  type        = bool
+  default     = true
+}
+
 
 #########
 # Ansible
 #########
+
+variable "playbook_vars" {
+  description = "Additional playbook vars"
+  type        = map(string)
+  default     = {}
+}
+
+variable "keystore_path" {
+  description = "The path to the keystore"
+  type        = string
+  default     = ""
+}
+
+variable "keystore_password" {
+  description = "The password to the keystore"
+  type        = string
+  default     = ""
+}
+
+
 //variable "private_key_path" {
 //  description = "Path to the private ssh key"
 //  type        = string

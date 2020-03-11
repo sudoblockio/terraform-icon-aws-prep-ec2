@@ -40,12 +40,16 @@ No issue is creating limit on this module.
 | eip\_id | The elastic ip id to attach to active instance | `string` | `""` | no |
 | environment | The environment | `string` | `""` | no |
 | instance\_type | Instance type | `string` | `"t2.micro"` | no |
-| key\_name | The key pair to import | `string` | `""` | no |
+| key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |
+| keystore\_password | The password to the keystore | `string` | `""` | no |
+| keystore\_path | The path to the keystore | `string` | `""` | no |
+| logs\_bucket\_enable | Create bucket to put logs | `bool` | `true` | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
 | namespace | The namespace to deploy into | `string` | `"prod"` | no |
-| network\_name | The network name, ie kusama / mainnet | `string` | `"main"` | no |
+| network\_name | The network name, ie kusama / mainnet | `string` | `"testnet"` | no |
 | owner | Owner of the infrastructure | `string` | `""` | no |
+| playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | root\_volume\_size | Root volume size | `string` | `8` | no |
