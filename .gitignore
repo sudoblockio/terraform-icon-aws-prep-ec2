@@ -4,8 +4,8 @@
 *.tfstate
 *.tfstate.backup
 *.tfplan
-.terragrunt-cache/
-.terraform/
+.terragrunt-cache
+.terraform
 .terraform.tfstate.lock.info
 
 terraform.tfvars
