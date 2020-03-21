@@ -1,8 +1,19 @@
 # terraform-icon-aws-prep
 
+This module is a WIP until it is integrated into a `terragrunt` scaffolding.
+
 ## Features
 
-This module...
+This module sets up a node on ICON Blockchain without any networking defaults. For examples on how to use it, see the
+`examples` directory. For the simplest and minimal specs, run with the `min_specs = true` variable.
+
+The module sets up an instance with several options for how to store the data. One can one large root volume (min specs),
+attach an EBS volume, or use the attached instance storage for the highest performance.
+
+Further integrations with monitoring, logging and alarms with permissioned instance profiles are being developed.
+
+The module calls [ansible-role-icon-prep](https://github.com/insight-infrastructure/ansible-role-icon-prep) from within
+the module and exposed configuration settings as terraform variables.
 
 ## Terraform Versions
 
@@ -10,15 +21,30 @@ For Terraform v0.12.0+
 
 ## Usage
 
-```
-module "this" {
-    source = "github.com/robc-io/terraform-icon-aws-prep"
+*Minimum specs : simplest example*
+```terraform
+module "defaults" {
+  source = "github.com/insight-infrastructure/terraform-icon-aws-prep.git?ref=master"
 
+  minimum_specs = true
+
+  public_ip = module.registration.public_ip
+
+  private_key_path = var.private_key_path
+  public_key_path  = var.public_key_path
+
+  subnet_id              = module.default_vpc.subnet_ids[0]
+  vpc_security_group_ids = [aws_security_group.this.id]
+
+  keystore_path     = local.keystore_path
+  keystore_password = "testing1."
 }
 ```
+
 ## Examples
 
-- [defaults](https://github.com/robc-io/terraform-icon-aws-prep/tree/master/examples/defaults)
+- [min-specs](https://github.com/robc-io/terraform-icon-aws-prep/tree/master/examples/min-specs)
+- [instance-store](https://github.com/robc-io/terraform-icon-aws-prep/tree/master/examples/instance-store)
 
 ## Known  Issues
 No issue is creating limit on this module.
