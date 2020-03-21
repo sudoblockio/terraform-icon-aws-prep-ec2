@@ -1,3 +1,16 @@
+variable "create" {
+  description = "Boolean to create resources or not"
+  type        = bool
+  default     = true
+}
+
+variable "minimum_specs" {
+  description = "Boolean to use minimum specs"
+  type        = bool
+  default     = false
+}
+
+
 ########
 # Label
 ########
@@ -40,8 +53,8 @@ variable "owner" {
 ######
 # Data
 ######
-variable "eip_id" {
-  description = "The elastic ip id to attach to active instance"
+variable "public_ip" {
+  description = "The public IP of the elastic ip to attach to active instance"
   type        = string
   default     = ""
 }
@@ -71,22 +84,22 @@ variable "monitoring" {
   default     = false
 }
 
-//variable "ebs_volume_size" {
-//  description = "EBS volume size"
-//  type        = string
-//  default     = 0
-//}
-
-//variable "volume_path" {
-//  description = "Volume path"
-//  type        = string
-//  default     = "/dev/xvdf"
-//}
-
 variable "root_volume_size" {
   description = "Root volume size"
   type        = string
   default     = 8
+}
+
+variable "root_volume_type" {
+  description = ""
+  type        = string
+  default     = "gp2"
+}
+
+variable "root_iops" {
+  description = ""
+  type        = string
+  default     = null
 }
 
 variable "instance_type" {
@@ -108,6 +121,11 @@ variable "private_key_path" {
 #####
 # EBS
 #####
+variable "create_ebs_volume" {
+  type    = bool
+  default = false
+}
+
 variable "ebs_volume_id" {
   type        = string
   default     = ""
@@ -118,6 +136,18 @@ variable "ebs_volume_size" {
   description = "The size of volume - leave as zero or empty for no volume"
   type        = number
   default     = 0
+}
+
+variable "ebs_volume_type" {
+  description = "Type of EBS - https://aws.amazon.com/ebs/volume-types/"
+  type        = string
+  default     = "gp2"
+}
+
+variable "ebs_volome_iops" {
+  description = ""
+  type        = string
+  default     = null
 }
 
 variable "volume_path" {
@@ -136,6 +166,11 @@ variable "logs_bucket_enable" {
 #########
 # Ansible
 #########
+variable "ansible_hardening" {
+  description = "Run hardening roles"
+  type        = bool
+  default     = false
+}
 
 variable "playbook_vars" {
   description = "Additional playbook vars"
@@ -155,6 +190,16 @@ variable "keystore_password" {
   default     = ""
 }
 
+//variable "main_ip" {
+//  description = "The main IP that was registered"
+//  type = string
+//}
+
+variable "associate_eip" {
+  description = "Boolean to determine if you should associate the ip when the instance has been configured"
+  type        = bool
+  default     = true
+}
 
 //variable "private_key_path" {
 //  description = "Path to the private ssh key"
