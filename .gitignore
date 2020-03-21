@@ -8,7 +8,12 @@
 .terraform/
 .terraform.tfstate.lock.info
 
+terraform.tfvars
+
 test/fixtures/keys/*
 !test/fixtures/keys/.gitkeep
 
-ansible/roles/icon-prep
+!ansible/roles/volumes
+ansible/roles/icon-prep/
+
+.tmp
