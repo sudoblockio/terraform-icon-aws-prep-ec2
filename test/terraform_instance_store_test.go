@@ -58,7 +58,7 @@ func testExportersGoodHealth(t *testing.T, terraformOptions *terraform.Options, 
 	// Run a simple echo command on the server
 	expectedText := "200"
 
-	ports := []string{"9100", "9113", "9115", "8080"}
+	ports := []string{"9000", "9100", "9115", "8080"}
 
 	for _, port := range ports {
 		command := fmt.Sprintf("curl -sL -w \"%%{http_code}\" localhost:%s/metrics -o /dev/null", port,)
