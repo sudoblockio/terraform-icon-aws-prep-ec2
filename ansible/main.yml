@@ -3,4 +3,5 @@
     - { role: volumes, when: instance_store_enabled | default(false) | bool }
     - { role: "dev-sec.os-hardening", when: ansible_hardening | default(false) | bool }
     - { role: "dev-sec.ssh-hardening", when: ansible_hardening | default(false) | bool }
-    - icon-prep
+#    - icon-prep
+    - robc_io.icon_prep

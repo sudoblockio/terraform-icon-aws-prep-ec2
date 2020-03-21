@@ -1,7 +1,8 @@
 ---
-#- src: insight-infrastructure.icon-prep
 
 - src: dev-sec.os-hardening
   version: 5.2.1
 - src: dev-sec.ssh-hardening
   version: 7.0.0
+- src: robc_io.icon_prep
+  version: 0cee92c113505b75451ce9d5dde64e65454b16c0
