@@ -4,4 +4,4 @@
     - { role: "dev-sec.os-hardening", when: ansible_hardening | default(false) | bool }
     - { role: "dev-sec.ssh-hardening", when: ansible_hardening | default(false) | bool }
 #    - icon-prep
-    - robc_io.icon_prep
+    - insight_infra.icon_prep
