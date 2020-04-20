@@ -3,10 +3,12 @@ package test
 import (
 	"fmt"
 	"github.com/gruntwork-io/terratest/modules/aws"
+	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
 	"github.com/gruntwork-io/terratest/modules/retry"
 	"github.com/gruntwork-io/terratest/modules/ssh"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -38,9 +40,9 @@ func TestInstanceStore(t *testing.T) {
 		keyPair := test_structure.LoadEc2KeyPair(t, exampleFolder)
 
 		testExportersGoodHealth(t, terraformOptions, keyPair)
+		testApiEndpoint(t, terraformOptions)
 	})
 }
-
 
 func testExportersGoodHealth(t *testing.T, terraformOptions *terraform.Options, keyPair *aws.Ec2Keypair) {
 	publicInstanceIP := terraform.Output(t, terraformOptions, "public_ip")
@@ -58,10 +60,10 @@ func testExportersGoodHealth(t *testing.T, terraformOptions *terraform.Options, 
 	// Run a simple echo command on the server
 	expectedText := "200"
 
-	ports := []string{"9000", "9100", "9115", "8080"}
+	ports := []string{"9100", "9115", "8080"}
 
 	for _, port := range ports {
-		command := fmt.Sprintf("curl -sL -w \"%%{http_code}\" localhost:%s/metrics -o /dev/null", port,)
+		command := fmt.Sprintf("curl -sL -w \"%%{http_code}\" localhost:%s/metrics -o /dev/null", port, )
 
 		description = fmt.Sprintf("SSH to public host %s with error command", publicInstanceIP)
 
@@ -82,3 +84,47 @@ func testExportersGoodHealth(t *testing.T, terraformOptions *terraform.Options, 
 	}
 }
 
+func testApiEndpoint(t *testing.T, terraformOptions *terraform.Options) {
+
+	nodeIp := terraform.Output(t, terraformOptions, "public_ip")
+
+	expectedStatus := "200"
+	body := strings.NewReader(`{
+    "jsonrpc": "2.0",
+    "id": 1234,
+    "method": "icx_call",
+    "params": {
+        "to": "cx0000000000000000000000000000000000000000",
+        "dataType": "call",
+        "data": {
+            "method": "getPReps",
+            "params": {
+                "startRanking" : "0x1",
+                "endRanking": "0x1"
+            }
+        }
+    }
+}`)
+	url := fmt.Sprintf("http://%s:9933", nodeIp)
+	headers := make(map[string]string)
+	headers["Content-Type"] = "text/plain"
+
+	description := fmt.Sprintf("curl to LB %s with error command", nodeIp)
+	maxRetries := 30
+	timeBetweenRetries := 1 * time.Second
+
+	retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
+
+		outputStatus, _, err := http_helper.HTTPDoE(t, "POST", url, body, headers, nil)
+
+		if err != nil {
+			return "", err
+		}
+
+		if strings.TrimSpace(strconv.Itoa(outputStatus)) != expectedStatus {
+			return "", fmt.Errorf("expected SSH command to return '%s' but got '%s'", expectedStatus, strconv.Itoa(outputStatus))
+		}
+
+		return "", nil
+	})
+}

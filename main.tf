@@ -1,10 +1,5 @@
 resource "random_pet" "this" {}
 
-locals {
-  //  ebs_volume_size = var.ebs_volume_size == 0 ?
-}
-
-
 module "label" {
   source = "github.com/robc-io/terraform-null-label.git?ref=0.16.1"
 
@@ -46,10 +41,8 @@ resource "aws_ebs_volume" "this" {
 resource "aws_volume_attachment" "this" {
   count = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
 
-  device_name = var.volume_path
-
-  volume_id = aws_ebs_volume.this.*.id[0]
-
+  device_name  = var.volume_path
+  volume_id    = aws_ebs_volume.this.*.id[0]
   instance_id  = join("", aws_instance.this.*.id)
   force_detach = true
 }
@@ -112,14 +105,15 @@ data "aws_eip" "public_ip" {
 resource "aws_eip_association" "main_ip" {
   count       = var.associate_eip && var.create ? 1 : 0
   instance_id = join("", aws_instance.this.*.id)
-  public_ip   = data.aws_eip.public_ip.*.public_ip[0]
+  public_ip   = join("", data.aws_eip.public_ip.*.public_ip)
 
   depends_on = [module.ansible]
 }
 
 module "ansible_service_start" {
-  source           = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.12.0"
-  create           = var.create
+  source = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.12.0"
+  create = var.associate_eip && var.create
+
   ip               = join("", aws_eip_association.main_ip.*.public_ip)
   user             = "ubuntu"
   private_key_path = var.private_key_path

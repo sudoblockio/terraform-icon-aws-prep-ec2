@@ -4,8 +4,8 @@ locals {
 
 
   minimum_volume_size = {
-    mainnet = 220,
-    testnet = 50
+    mainnet = 240,
+    testnet = 70
   }
   minimum_instance_type = "t3.small"
 

@@ -67,7 +67,7 @@ module "defaults" {
   subnet_id              = module.default_vpc.subnet_ids[0]
   vpc_security_group_ids = [aws_security_group.this.id]
 
-  instance_type = "c5d.large"
+  instance_type = "i3.large"
 
   keystore_path     = local.keystore_path
   keystore_password = "testing1."

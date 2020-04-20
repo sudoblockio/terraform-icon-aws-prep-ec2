@@ -10,13 +10,19 @@ one_ephemeral_nvme:
   - { device_name: /dev/nvme0n1 }
 two_ephemeral_nvme:
   - { device_name: /dev/nvme0n1 }
-  - { device_name: /dev/nvme0n1 }
-
+  - { device_name: /dev/nvme0n2 }
 four_ephemeral_nvme:
   - { device_name: /dev/nvme0n1 }
-  - { device_name: /dev/nvme0n1 }
+  - { device_name: /dev/nvme0n2 }
+  - { device_name: /dev/nvme0n3 }
+  - { device_name: /dev/nvme0n4 }
 
 ephemeral_volumes:
+  i3.large: "{{ one_ephemeral_nvme }}"
+  i3.xlarge: "{{ one_ephemeral_nvme }}"
+  i3.2xlarge: "{{ one_ephemeral_nvme }}"
+  i3.4xlarge: "{{ two_ephemeral_nvme }}"
+  i3.8xlarge: "{{ four_ephemeral_nvme }}"
   c5d.large: "{{ one_ephemeral_nvme }}"
   c5d.xlarge: "{{ one_ephemeral_nvme }}"
   c5d.2xlarge: "{{ one_ephemeral_nvme }}"
