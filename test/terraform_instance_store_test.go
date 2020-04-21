@@ -105,7 +105,7 @@ func testApiEndpoint(t *testing.T, terraformOptions *terraform.Options) {
         }
     }
 }`)
-	url := fmt.Sprintf("http://%s:9933", nodeIp)
+	url := fmt.Sprintf("http://%s:9000/api/v3", nodeIp)
 	headers := make(map[string]string)
 	headers["Content-Type"] = "text/plain"
 
