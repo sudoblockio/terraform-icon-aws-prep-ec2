@@ -74,7 +74,7 @@ No issue is creating limit on this module.
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
 | logging\_bucket\_name | Name of bucket for logs - blank for logs-<account-id> | `string` | `""` | no |
-| logs\_bucket\_enable | Create bucket to put logs | `bool` | `true` | no |
+| logs\_bucket\_enable | Create bucket to put logs | `bool` | `false` | no |
 | minimum\_specs | Boolean to use minimum specs | `bool` | `false` | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |

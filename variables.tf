@@ -141,7 +141,7 @@ variable "volume_path" {
 variable "logs_bucket_enable" {
   description = "Create bucket to put logs"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "logging_bucket_name" {
