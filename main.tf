@@ -1,22 +1,5 @@
 resource "random_pet" "this" {}
 
-module "label" {
-  source = "github.com/robc-io/terraform-null-label.git?ref=0.16.1"
-
-  name = var.name
-
-  tags = {
-    NetworkName = var.network_name
-    Owner       = var.owner
-    Terraform   = true
-    VpcType     = "main"
-  }
-
-  environment = var.environment
-  namespace   = var.namespace
-  stage       = var.stage
-}
-
 module "ami" {
   source = "github.com/insight-infrastructure/terraform-aws-ami.git?ref=v0.1.0"
 }
@@ -24,6 +7,10 @@ module "ami" {
 resource "aws_key_pair" "this" {
   count      = var.public_key_path != "" && var.create ? 1 : 0
   public_key = file(var.public_key_path)
+}
+
+locals {
+  tags = merge(var.tags, { Name = var.name })
 }
 
 resource "aws_ebs_volume" "this" {
@@ -35,7 +22,7 @@ resource "aws_ebs_volume" "this" {
   type = var.ebs_volume_type
   iops = var.ebs_volome_iops
 
-  tags = module.label.tags
+  tags = local.tags
 }
 
 resource "aws_volume_attachment" "this" {
@@ -49,11 +36,15 @@ resource "aws_volume_attachment" "this" {
 
 data "aws_caller_identity" "this" {}
 
+locals {
+  logging_bucket_name = var.logging_bucket_name == "" ? "logs-${data.aws_caller_identity.this.account_id}" : var.logging_bucket_name
+}
+
 resource "aws_s3_bucket" "logs" {
   count  = var.logs_bucket_enable && var.create ? 1 : 0
-  bucket = "logs-${data.aws_caller_identity.this.account_id}"
+  bucket = local.logging_bucket_name
   acl    = "private"
-  tags   = module.label.tags
+  tags   = local.tags
 }
 
 resource "aws_instance" "this" {
@@ -73,7 +64,7 @@ resource "aws_instance" "this" {
   iam_instance_profile = join("", aws_iam_instance_profile.this.*.id)
   key_name             = var.public_key_path == "" ? var.key_name : aws_key_pair.this.*.key_name[0]
 
-  tags = module.label.tags
+  tags = local.tags
 }
 
 module "ansible" {

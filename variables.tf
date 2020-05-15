@@ -20,34 +20,16 @@ variable "name" {
   default     = "prep"
 }
 
-variable "environment" {
-  description = "The environment"
-  type        = string
-  default     = ""
-}
-
-variable "namespace" {
-  description = "The namespace to deploy into"
-  type        = string
-  default     = "prod"
-}
-
-variable "stage" {
-  description = "The stage of the deployment"
-  type        = string
-  default     = "blue"
+variable "tags" {
+  description = "Map of tags"
+  type        = map(string)
+  default     = {}
 }
 
 variable "network_name" {
   description = "The network name, ie kusama / mainnet"
   type        = string
   default     = "testnet"
-}
-
-variable "owner" {
-  description = "Owner of the infrastructure"
-  type        = string
-  default     = ""
 }
 
 ######
@@ -162,6 +144,11 @@ variable "logs_bucket_enable" {
   default     = true
 }
 
+variable "logging_bucket_name" {
+  description = "Name of bucket for logs - blank for logs-<account-id>"
+  type        = string
+  default     = ""
+}
 
 #########
 # Ansible

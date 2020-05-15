@@ -69,18 +69,16 @@ No issue is creating limit on this module.
 | ebs\_volume\_id | The volume id of the ebs volume to mount | `string` | `""` | no |
 | ebs\_volume\_size | The size of volume - leave as zero or empty for no volume | `number` | `0` | no |
 | ebs\_volume\_type | Type of EBS - https://aws.amazon.com/ebs/volume-types/ | `string` | `"gp2"` | no |
-| environment | The environment | `string` | `""` | no |
 | instance\_type | Instance type | `string` | `"t2.micro"` | no |
 | key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
+| logging\_bucket\_name | Name of bucket for logs - blank for logs-<account-id> | `string` | `""` | no |
 | logs\_bucket\_enable | Create bucket to put logs | `bool` | `true` | no |
 | minimum\_specs | Boolean to use minimum specs | `bool` | `false` | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
-| namespace | The namespace to deploy into | `string` | `"prod"` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `"testnet"` | no |
-| owner | Owner of the infrastructure | `string` | `""` | no |
 | playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | public\_ip | The public IP of the elastic ip to attach to active instance | `string` | `""` | no |
@@ -88,8 +86,8 @@ No issue is creating limit on this module.
 | root\_iops | n/a | `string` | n/a | yes |
 | root\_volume\_size | Root volume size | `string` | `8` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
-| stage | The stage of the deployment | `string` | `"blue"` | no |
 | subnet\_id | The id of the subnet | `string` | n/a | yes |
+| tags | Map of tags | `map(string)` | `{}` | no |
 | volume\_path | The path of the EBS volume | `string` | `"/dev/xvdf"` | no |
 | vpc\_security\_group\_ids | List of security groups | `list(string)` | n/a | yes |
 

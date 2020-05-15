@@ -1,6 +1,6 @@
 resource "aws_iam_role" "this" {
   count              = var.create ? 1 : 0
-  name               = "${module.label.name}Role${title(random_pet.this.id)}"
+  name               = "${title(var.name)}Role${title(random_pet.this.id)}"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -17,19 +17,19 @@ resource "aws_iam_role" "this" {
 }
 EOF
 
-  tags = module.label.tags
+  tags = var.tags
 }
 
 resource "aws_iam_instance_profile" "this" {
   count = var.create ? 1 : 0
 
-  name = "${module.label.name}InstanceProfile${title(random_pet.this.id)}"
+  name = "${title(var.name)}InstanceProfile${title(random_pet.this.id)}"
   role = join("", aws_iam_role.this.*.name)
 }
 
 resource "aws_iam_policy" "ebs_mount_policy" {
   count  = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
-  name   = "${module.label.name}EbsMountPolicy${title(random_pet.this.id)}"
+  name   = "${title(var.name)}EbsMountPolicy${title(random_pet.this.id)}"
   policy = <<-EOT
 {
     "Version": "2012-10-17",
@@ -69,7 +69,7 @@ resource "aws_iam_role_policy_attachment" "ebs_mount_policy" {
 resource "aws_iam_policy" "s3_put_logs_policy" {
   count = var.logs_bucket_enable && var.create ? 1 : 0
 
-  name   = "${module.label.name}S3PutLogsPolicy${title(random_pet.this.id)}"
+  name   = "${title(var.name)}S3PutLogsPolicy${title(random_pet.this.id)}"
   policy = <<-EOT
 {
     "Version": "2012-10-17",
