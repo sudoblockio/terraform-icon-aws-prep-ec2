@@ -59,12 +59,12 @@ resource "aws_instance" "this" {
   }
 
   subnet_id              = var.subnet_id
-  vpc_security_group_ids = var.vpc_security_group_ids
+  vpc_security_group_ids = compact(concat(aws_security_group.this.*.id, var.additional_security_group_ids))
 
   iam_instance_profile = join("", aws_iam_instance_profile.this.*.id)
   key_name             = var.public_key_path == "" ? var.key_name : aws_key_pair.this.*.key_name[0]
 
-  tags = local.tags
+  tags = merge({ name = var.name }, local.tags)
 }
 
 module "ansible" {

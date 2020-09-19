@@ -7,7 +7,7 @@ module "default_vpc" {
 }
 
 locals {
-  keystore_path = "${path.cwd}/../../test/fixtures/keystore-min-specs"
+  keystore_path = "${path.cwd}/../../test/fixtures/keystore-default-vpc"
 }
 
 module "registration" {
@@ -24,51 +24,20 @@ module "registration" {
   keystore_path     = local.keystore_path
 }
 
-resource "aws_security_group" "this" {
-  vpc_id = module.default_vpc.vpc_id
-
-  dynamic "ingress" {
-    for_each = [
-      22,   # ssh
-      7100, # grpc
-      9000, # jsonrpc
-      9100, # node exporter
-      9113, # nginx exporter - TODO: Needs nginx.conf overview
-      9115, # blackbox exporter
-      8080, # cadvisor
-    ]
-
-    content {
-      from_port = ingress.value
-      to_port   = ingress.value
-      protocol  = "tcp"
-      cidr_blocks = [
-      "0.0.0.0/0"]
-    }
-  }
-
-  egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_blocks = [
-    "0.0.0.0/0"]
-  }
-}
-
 module "defaults" {
   source = "../.."
-
-  minimum_specs = true
 
   public_ip = module.registration.public_ip
 
   private_key_path = var.private_key_path
   public_key_path  = var.public_key_path
 
-  subnet_id                     = module.default_vpc.subnet_ids[0]
-  additional_security_group_ids = [aws_security_group.this.id]
+  instance_type = "i3.large"
+  create_sg     = true
 
   keystore_path     = local.keystore_path
   keystore_password = "testing1."
+  playbook_vars = {
+    sync_db = true
+  }
 }

@@ -64,8 +64,8 @@ module "defaults" {
   private_key_path = var.private_key_path
   public_key_path  = var.public_key_path
 
-  subnet_id              = module.default_vpc.subnet_ids[0]
-  vpc_security_group_ids = [aws_security_group.this.id]
+  subnet_id                     = module.default_vpc.subnet_ids[0]
+  additional_security_group_ids = [aws_security_group.this.id]
 
   instance_type = "i3.large"
 

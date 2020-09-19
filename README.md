@@ -61,10 +61,12 @@ No issue is creating limit on this module.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
+| additional\_security\_group\_ids | List of security groups | `list(string)` | `[]` | no |
 | ansible\_hardening | Run hardening roles | `bool` | `false` | no |
 | associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `true` | no |
 | create | Boolean to create resources or not | `bool` | `true` | no |
 | create\_ebs\_volume | #### EBS #### | `bool` | `false` | no |
+| create\_sg | Bool for create security group | `bool` | `false` | no |
 | ebs\_volome\_iops | n/a | `string` | n/a | yes |
 | ebs\_volume\_id | The volume id of the ebs volume to mount | `string` | `""` | no |
 | ebs\_volume\_size | The size of volume - leave as zero or empty for no volume | `number` | `0` | no |
@@ -81,15 +83,18 @@ No issue is creating limit on this module.
 | network\_name | The network name, ie kusama / mainnet | `string` | `"testnet"` | no |
 | playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
+| private\_port\_cidrs | List of CIDR blocks for private ports | `list(string)` | <pre>[<br>  "172.31.0.0/16"<br>]</pre> | no |
+| private\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  9100,<br>  9113,<br>  9115,<br>  8080<br>]</pre> | no |
 | public\_ip | The public IP of the elastic ip to attach to active instance | `string` | `""` | no |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
+| public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  7100,<br>  9000,<br>  9100,<br>  9113,<br>  9115,<br>  8080<br>]</pre> | no |
 | root\_iops | n/a | `string` | n/a | yes |
 | root\_volume\_size | Root volume size | `string` | `8` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
-| subnet\_id | The id of the subnet | `string` | n/a | yes |
+| subnet\_id | The id of the subnet | `string` | `""` | no |
 | tags | Map of tags | `map(string)` | `{}` | no |
 | volume\_path | The path of the EBS volume | `string` | `"/dev/xvdf"` | no |
-| vpc\_security\_group\_ids | List of security groups | `list(string)` | n/a | yes |
+| vpc\_id | Custom vpc id - leave blank for deault | `string` | `""` | no |
 
 ## Outputs
 
