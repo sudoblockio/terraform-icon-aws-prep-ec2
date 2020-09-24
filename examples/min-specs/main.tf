@@ -12,7 +12,7 @@ locals {
 
 module "registration" {
   source       = "github.com/insight-infrastructure/terraform-aws-icon-registration.git?ref=v0.1.0"
-  network_name = "testnet"
+  network_name = "zicon"
 
   organization_name    = "Insight-CI1"
   organization_country = "USA"

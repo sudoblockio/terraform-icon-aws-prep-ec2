@@ -80,7 +80,7 @@ No issue is creating limit on this module.
 | minimum\_specs | Boolean to use minimum specs | `bool` | `false` | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
-| network\_name | The network name, ie kusama / mainnet | `string` | `"testnet"` | no |
+| network\_name | The network name, ie kusama / mainnet | `string` | n/a | yes |
 | playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | private\_port\_cidrs | List of CIDR blocks for private ports | `list(string)` | <pre>[<br>  "172.31.0.0/16"<br>]</pre> | no |
@@ -92,6 +92,7 @@ No issue is creating limit on this module.
 | root\_volume\_size | Root volume size | `string` | `8` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
 | subnet\_id | The id of the subnet | `string` | `""` | no |
+| switch\_ip\_internally | Bool to switch ip internally | `bool` | `true` | no |
 | tags | Map of tags | `map(string)` | `{}` | no |
 | volume\_path | The path of the EBS volume | `string` | `"/dev/xvdf"` | no |
 | vpc\_id | Custom vpc id - leave blank for deault | `string` | `""` | no |

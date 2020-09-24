@@ -22,9 +22,8 @@ EOF
 
 resource "aws_iam_instance_profile" "this" {
   count = var.create ? 1 : 0
-
-  name = "${title(var.name)}InstanceProfile${title(random_pet.this.id)}"
-  role = join("", aws_iam_role.this.*.name)
+  name  = "${title(var.name)}InstanceProfile${title(random_pet.this.id)}"
+  role  = join("", aws_iam_role.this.*.name)
 }
 
 resource "aws_iam_policy" "ebs_mount_policy" {
@@ -59,10 +58,8 @@ EOT
 }
 
 resource "aws_iam_role_policy_attachment" "ebs_mount_policy" {
-  count = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
-
-  role = join("", aws_iam_role.this.*.id)
-
+  count      = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
+  role       = join("", aws_iam_role.this.*.id)
   policy_arn = aws_iam_policy.ebs_mount_policy.*.arn[0]
 }
 
@@ -82,14 +79,49 @@ resource "aws_iam_policy" "s3_put_logs_policy" {
         }
     ]
 }
-
 EOT
 }
 
 resource "aws_iam_role_policy_attachment" "s3_put_logs_policy" {
-  count = var.ebs_volume_size > 0 && var.create ? 1 : 0
+  count      = var.ebs_volume_size > 0 && var.create ? 1 : 0
+  role       = join("", aws_iam_role.this.*.id)
+  policy_arn = aws_iam_policy.eip_attach_policy.*.arn[0]
+}
 
-  role = join("", aws_iam_role.this.*.id)
+data "aws_caller_identity" "this" {}
+data "aws_region" "this" {}
 
-  policy_arn = aws_iam_policy.s3_put_logs_policy.*.arn[0]
+variable "switch_ip_internally" {
+  description = "Bool to switch ip internally"
+  type        = bool
+  default     = true
+}
+
+resource "aws_iam_policy" "eip_attach_policy" {
+  count = var.switch_ip_internally && var.create ? 1 : 0
+
+  name   = "${title(var.name)}EIPSwitch${title(random_pet.this.id)}"
+  policy = <<-EOT
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+          "Sid":"ReadWrite",
+          "Effect":"Allow",
+          "Action":["ec2:DescribeAddresses",
+                    "ec2:AssociateAddress",
+                    "ec2:DisassociateAddress",
+                    "ec2:DescribeNetworkInterfaces",
+                    "ec2:DescribeInstances"],
+          "Resource":["*"]
+        }
+    ]
+}
+EOT
+}
+
+resource "aws_iam_role_policy_attachment" "eip_attach_policy" {
+  count      = var.switch_ip_internally && var.create ? 1 : 0
+  role       = join("", aws_iam_role.this.*.id)
+  policy_arn = aws_iam_policy.eip_attach_policy.*.arn[0]
 }

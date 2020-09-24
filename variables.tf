@@ -29,7 +29,6 @@ variable "tags" {
 variable "network_name" {
   description = "The network name, ie kusama / mainnet"
   type        = string
-  default     = "testnet"
 }
 
 ######

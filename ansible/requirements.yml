@@ -4,5 +4,5 @@
   version: 5.2.1
 - src: dev-sec.ssh-hardening
   version: 7.0.0
-- src: insight_infra.icon_prep
-  version: 1d41153939c8e815352a3555ee6e7d0b80f2206d
+- src: insight_icon.icon_prep
+#  version: 1d41153939c8e815352a3555ee6e7d0b80f2206d
