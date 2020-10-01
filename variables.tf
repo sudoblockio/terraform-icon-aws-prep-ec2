@@ -55,7 +55,7 @@ variable "vpc_id" {
 variable "create_sg" {
   type        = bool
   description = "Bool for create security group"
-  default     = false
+  default     = true
 }
 
 variable "public_ports" {

@@ -66,7 +66,7 @@ No issue is creating limit on this module.
 | associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `true` | no |
 | create | Boolean to create resources or not | `bool` | `true` | no |
 | create\_ebs\_volume | #### EBS #### | `bool` | `false` | no |
-| create\_sg | Bool for create security group | `bool` | `false` | no |
+| create\_sg | Bool for create security group | `bool` | `true` | no |
 | instance\_type | Instance type | `string` | `"t3.small"` | no |
 | key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
