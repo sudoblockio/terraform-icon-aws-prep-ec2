@@ -131,7 +131,7 @@ variable "root_iops" {
 variable "instance_type" {
   description = "Instance type"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.small"
 }
 
 variable "public_key_path" {
