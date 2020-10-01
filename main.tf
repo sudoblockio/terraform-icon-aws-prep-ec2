@@ -6,33 +6,33 @@ module "ami" {
 
 resource "aws_key_pair" "this" {
   count      = var.public_key_path != "" && var.create ? 1 : 0
-  public_key = file(var.public_key_path)
+  public_key = file(pathexpand(var.public_key_path))
 }
 
 locals {
   tags = merge(var.tags, { Name = var.name })
 }
 
-resource "aws_ebs_volume" "this" {
-  count = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
-
-  availability_zone = join("", aws_instance.this.*.availability_zone)
-
-  size = var.ebs_volume_size
-  type = var.ebs_volume_type
-  iops = var.ebs_volome_iops
-
-  tags = local.tags
-}
-
-resource "aws_volume_attachment" "this" {
-  count = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
-
-  device_name  = var.volume_path
-  volume_id    = aws_ebs_volume.this.*.id[0]
-  instance_id  = join("", aws_instance.this.*.id)
-  force_detach = true
-}
+//resource "aws_ebs_volume" "this" {
+//  count = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
+//
+//  availability_zone = join("", aws_instance.this.*.availability_zone)
+//
+//  size = var.ebs_volume_size
+//  type = var.ebs_volume_type
+//  iops = var.ebs_volome_iops
+//
+//  tags = local.tags
+//}
+//
+//resource "aws_volume_attachment" "this" {
+//  count = ! local.instance_store_enabled && var.create && var.ebs_volume_size > 0 ? 1 : 0
+//
+//  device_name  = var.volume_path
+//  volume_id    = aws_ebs_volume.this.*.id[0]
+//  instance_id  = join("", aws_instance.this.*.id)
+//  force_detach = true
+//}
 
 locals {
   logging_bucket_name = var.logging_bucket_name == "" ? "logs-${data.aws_caller_identity.this.account_id}" : var.logging_bucket_name
@@ -82,16 +82,16 @@ resource "aws_instance" "this" {
 }
 
 module "ansible" {
-  source           = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.10.0"
+  source           = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0"
   create           = var.create
   ip               = join("", aws_instance.this.*.public_ip)
   user             = "ubuntu"
-  private_key_path = var.private_key_path
+  private_key_path = pathexpand(var.private_key_path)
 
   playbook_file_path = "${path.module}/ansible/main.yml"
   playbook_vars = merge({
-    keystore_path          = var.keystore_path,
-    keystore_password      = var.keystore_password,
+    keystore_path          = var.operator_keystore_path == "" ? var.keystore_path : var.operator_keystore_path
+    keystore_password      = var.operator_keystore_password == "" ? var.keystore_password : var.operator_keystore_password
     network_name           = var.network_name,
     instance_type          = var.instance_type,
     instance_store_enabled = local.instance_store_enabled,

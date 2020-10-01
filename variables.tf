@@ -4,11 +4,11 @@ variable "create" {
   default     = true
 }
 
-variable "minimum_specs" {
-  description = "Boolean to use minimum specs"
-  type        = bool
-  default     = false
-}
+//variable "minimum_specs" {
+//  description = "Boolean to use minimum specs"
+//  type        = bool
+//  default     = false
+//}
 
 
 ########
@@ -152,29 +152,29 @@ variable "create_ebs_volume" {
   default = false
 }
 
-variable "ebs_volume_id" {
-  type        = string
-  default     = ""
-  description = "The volume id of the ebs volume to mount"
-}
+//variable "ebs_volume_id" {
+//  type        = string
+//  default     = ""
+//  description = "The volume id of the ebs volume to mount"
+//}
+//
+//variable "ebs_volume_size" {
+//  description = "The size of volume - leave as zero or empty for no volume"
+//  type        = number
+//  default     = 0
+//}
+//
+//variable "ebs_volume_type" {
+//  description = "Type of EBS - https://aws.amazon.com/ebs/volume-types/"
+//  type        = string
+//  default     = "gp2"
+//}
 
-variable "ebs_volume_size" {
-  description = "The size of volume - leave as zero or empty for no volume"
-  type        = number
-  default     = 0
-}
-
-variable "ebs_volume_type" {
-  description = "Type of EBS - https://aws.amazon.com/ebs/volume-types/"
-  type        = string
-  default     = "gp2"
-}
-
-variable "ebs_volome_iops" {
-  description = ""
-  type        = string
-  default     = null
-}
+//variable "ebs_volome_iops" {
+//  description = ""
+//  type        = string
+//  default     = null
+//}
 
 variable "volume_path" {
   description = "The path of the EBS volume"
@@ -217,6 +217,18 @@ variable "keystore_path" {
 
 variable "keystore_password" {
   description = "The password to the keystore"
+  type        = string
+  default     = ""
+}
+
+variable "operator_keystore_password" {
+  description = "the path to your keystore"
+  type        = string
+  default     = ""
+}
+
+variable "operator_keystore_path" {
+  description = "The keystore password"
   type        = string
   default     = ""
 }
