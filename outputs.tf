@@ -24,9 +24,9 @@ output "instance_id" {
   value = join("", aws_instance.this.*.id)
 }
 
-output "ebs_volume_arn" {
-  value = join("", aws_ebs_volume.this.*.arn)
-}
+//output "ebs_volume_arn" {
+//  value = join("", aws_ebs_volume.this.*.arn)
+//}
 
 output "key_name" {
   value = join("", aws_key_pair.this.*.key_name)

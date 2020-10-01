@@ -99,7 +99,6 @@ No issue is creating limit on this module.
 | Name | Description |
 |------|-------------|
 | dhcp\_ip | n/a |
-| ebs\_volume\_arn | n/a |
 | instance\_id | n/a |
 | instance\_store\_enabled | n/a |
 | instance\_type | n/a |
