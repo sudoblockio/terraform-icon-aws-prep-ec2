@@ -1,0 +1,7 @@
+instance_type:
+  type: select
+  message: What size instance do you want?
+  choices:
+    - t3.small: Min specs - t3.small
+    - i3.large: Performant citizen - i3.large
+
