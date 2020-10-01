@@ -45,10 +45,26 @@ resource "aws_s3_bucket" "logs" {
   tags   = local.tags
 }
 
+locals {
+  instance_family        = split(".", var.instance_type)[0]
+  instance_size          = split(".", var.instance_type)[1]
+  instance_store_enabled = contains(["m5d", "m5ad", "m5dn", "r5dn", "r5d", "z1d", "c5d", "c3", "i3", "i3en"], local.instance_family)
+
+  minimum_volume_size = {
+    mainnet = 320,
+    testnet = 70
+    zicon   = 70
+    bicon   = 70
+  }
+
+  root_volume_size = local.instance_store_enabled ? var.root_volume_size : lookup(local.minimum_volume_size, var.network_name)
+  volume_path      = "/dev/xvdf"
+}
+
 resource "aws_instance" "this" {
   count         = var.create ? 1 : 0
   ami           = module.ami.ubuntu_1804_ami_id
-  instance_type = local.instance_type
+  instance_type = var.instance_type
 
   root_block_device {
     volume_size = local.root_volume_size
@@ -77,7 +93,7 @@ module "ansible" {
     keystore_path          = var.keystore_path,
     keystore_password      = var.keystore_password,
     network_name           = var.network_name,
-    instance_type          = local.instance_type,
+    instance_type          = var.instance_type,
     instance_store_enabled = local.instance_store_enabled,
     main_ip                = var.public_ip,
 

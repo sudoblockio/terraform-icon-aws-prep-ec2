@@ -112,7 +112,7 @@ variable "monitoring" {
 
 variable "root_volume_size" {
   description = "Root volume size"
-  type        = string
+  type        = number
   default     = 8
 }
 
