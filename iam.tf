@@ -63,30 +63,30 @@ resource "aws_iam_instance_profile" "this" {
 //  policy_arn = aws_iam_policy.ebs_mount_policy.*.arn[0]
 //}
 
-resource "aws_iam_policy" "s3_put_logs_policy" {
-  count = var.logs_bucket_enable && var.create ? 1 : 0
-
-  name   = "${title(var.name)}S3PutLogsPolicy${title(random_pet.this.id)}"
-  policy = <<-EOT
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-          "Sid":"ReadWrite",
-          "Effect":"Allow",
-          "Action":["s3:GetObject", "s3:PutObject"],
-          "Resource":["arn:aws:s3:::${aws_s3_bucket.logs.*.bucket[0]}/*"]
-        }
-    ]
-}
-EOT
-}
-
-resource "aws_iam_role_policy_attachment" "s3_put_logs_policy" {
-  count      = var.ebs_volume_size > 0 && var.create ? 1 : 0
-  role       = join("", aws_iam_role.this.*.id)
-  policy_arn = aws_iam_policy.eip_attach_policy.*.arn[0]
-}
+//resource "aws_iam_policy" "s3_put_logs_policy" {
+//  count = var.logs_bucket_enable && var.create ? 1 : 0
+//
+//  name   = "${title(var.name)}S3PutLogsPolicy${title(random_pet.this.id)}"
+//  policy = <<-EOT
+//{
+//    "Version": "2012-10-17",
+//    "Statement": [
+//        {
+//          "Sid":"ReadWrite",
+//          "Effect":"Allow",
+//          "Action":["s3:GetObject", "s3:PutObject"],
+//          "Resource":["arn:aws:s3:::${aws_s3_bucket.logs.*.bucket[0]}/*"]
+//        }
+//    ]
+//}
+//EOT
+//}
+//
+//resource "aws_iam_role_policy_attachment" "s3_put_logs_policy" {
+//  count      = var.ebs_volume_size > 0 && var.create ? 1 : 0
+//  role       = join("", aws_iam_role.this.*.id)
+//  policy_arn = aws_iam_policy.eip_attach_policy.*.arn[0]
+//}
 
 data "aws_caller_identity" "this" {}
 data "aws_region" "this" {}
