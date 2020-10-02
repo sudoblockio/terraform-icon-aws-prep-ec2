@@ -1,3 +1,52 @@
+variable "vpc_id" {
+  description = "Custom vpc id - leave blank for deault"
+  type        = string
+  default     = ""
+}
+
+variable "create_sg" {
+  type        = bool
+  description = "Bool for create security group"
+  default     = true
+}
+
+variable "public_ports" {
+  description = "List of publicly open ports"
+  type        = list(number)
+  default = [
+    22,
+    7100,
+    9000,
+    9100,
+    9113,
+    9115,
+    8080,
+  ]
+}
+
+variable "private_ports" {
+  description = "List of publicly open ports"
+  type        = list(number)
+  default = [
+    9100,
+    9113,
+    9115,
+    8080,
+  ]
+}
+
+variable "private_port_cidrs" {
+  description = "List of CIDR blocks for private ports"
+  type        = list(string)
+  default     = ["172.31.0.0/16"]
+}
+
+variable "additional_security_group_ids" {
+  description = "List of security groups"
+  type        = list(string)
+  default     = []
+}
+
 
 //data "aws_vpc" "this" {
 //  default = true

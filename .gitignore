@@ -16,6 +16,5 @@ test/fixtures/keys/*
 !ansible/roles/volumes
 ansible/roles/icon-prep/
 
-
-
+modules
 .tmp

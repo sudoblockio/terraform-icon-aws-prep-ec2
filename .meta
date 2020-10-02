@@ -1,6 +1,9 @@
 {
   "projects": {
-  	"ansible/roles/icon-prep": "https://github.com/insight-infrastructure/ansible-role-icon-prep "
+  	"ansible/roles/icon-prep": "https://github.com/insight-infrastructure/ansible-role-icon-prep",
+    "modules/dockprom": "https://github.com/stefanprodan/dockprom",
+    "modules/prysm-docker-compose": "https://github.com/stefa2k/prysm-docker-compose",
+    "modules/terraform-aws-eks": "https://github.com/terraform-aws-modules/terraform-aws-eks"
   }
 }
 
