@@ -1,8 +1,14 @@
 - hosts: all
   roles:
     - { role: volumes, when: instance_store_enabled | default(false) | bool }
+    - role: christiangda.amazon_cloudwatch_agent
+      when: cloudwatch_enable | default(false) | bool
+#      vars:
+#        cwa_agent_mode: "ec2"
+#        cwa_conf_json_file_content: "{{ lookup('file', 'files/CloudWatch.json') | from_json }}"
+      
     - { role: "dev-sec.os-hardening", when: ansible_hardening | default(false) | bool }
     - { role: "dev-sec.ssh-hardening", when: ansible_hardening | default(false) | bool }
-#    - icon-prep
-    - insight_icon.icon_prep
+    - icon-prep
+#    - insight_icon.icon_prep
 
