@@ -55,7 +55,16 @@ variable "subnet_id" {
   default     = ""
 }
 
-
+variable "minimum_volume_size_map" {
+  description = "Map for networks with min volume size "
+  type        = map(string)
+  default = {
+    mainnet = 400,
+    testnet = 70
+    zicon   = 70
+    bicon   = 70
+  }
+}
 
 resource "random_pet" "this" {}
 
@@ -89,14 +98,7 @@ locals {
   instance_size          = split(".", var.instance_type)[1]
   instance_store_enabled = contains(["m5d", "m5ad", "m5dn", "r5dn", "r5d", "z1d", "c5d", "c5ad", "c3", "i3", "i3en"], local.instance_family)
 
-  minimum_volume_size = {
-    mainnet = 320,
-    testnet = 70
-    zicon   = 70
-    bicon   = 70
-  }
-
-  root_volume_size = local.instance_store_enabled ? var.root_volume_size : lookup(local.minimum_volume_size, var.network_name)
+  root_volume_size = local.instance_store_enabled ? var.root_volume_size : lookup(var.minimum_volume_size_map, var.network_name)
   volume_path      = "/dev/xvdf"
 }
 
