@@ -42,13 +42,14 @@ variable "operator_keystore_path" {
 variable "associate_eip" {
   description = "Boolean to determine if you should associate the ip when the instance has been configured"
   type        = bool
-  default     = true
+  default     = false
 }
+
 // TODO
 variable "switch_ip_internally" {
   description = "Bool to switch ip internally"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "endpoint_url" {
@@ -114,27 +115,25 @@ module "ansible" {
   requirements_file_path = "${path.module}/ansible/requirements.yml"
 }
 
-//data "aws_e" "" {}
+resource "aws_eip_association" "main_ip" {
+  count       = var.associate_eip && var.create ? 1 : 0
+  instance_id = join("", aws_instance.this.*.id)
+  public_ip   = join("", data.aws_eip.public_ip.*.public_ip)
 
-//resource "aws_eip_association" "main_ip" {
-//  count       = var.associate_eip && var.create ? 1 : 0
-//  instance_id = join("", aws_instance.this.*.id)
-//  public_ip   = join("", data.aws_eip.public_ip.*.public_ip)
-//
-//  depends_on = [module.ansible]
-//}
+  depends_on = [module.ansible]
+}
 
-//module "ansible_service_start" {
-//  source = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.12.0"
-//  create = var.associate_eip && var.create
-//
-//  ip               = join("", aws_eip_association.main_ip.*.public_ip)
-//  user             = "ubuntu"
-//  private_key_path = var.private_key_path
-//
-//  tags = "service-start"
-//
-//  playbook_file_path = "${path.module}/ansible/main.yml"
-//
-//  module_depends_on = [join("", aws_eip_association.main_ip.*.id), module.ansible.ip]
-//}
+module "ansible_service_start" {
+  source = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.12.0"
+  create = var.associate_eip && var.create
+
+  ip               = join("", aws_eip_association.main_ip.*.public_ip)
+  user             = "ubuntu"
+  private_key_path = var.private_key_path
+
+  tags = "service-start"
+
+  playbook_file_path = "${path.module}/ansible/main.yml"
+
+  module_depends_on = [join("", aws_eip_association.main_ip.*.id), module.ansible.ip]
+}

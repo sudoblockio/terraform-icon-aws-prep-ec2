@@ -63,7 +63,7 @@ No issue is creating limit on this module.
 |------|-------------|------|---------|:-----:|
 | additional\_security\_group\_ids | List of security groups | `list(string)` | `[]` | no |
 | ansible\_hardening | Run hardening roles | `bool` | `false` | no |
-| associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `true` | no |
+| associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `false` | no |
 | cloudwatch\_enable | Enable CW | `bool` | `true` | no |
 | create | Boolean to create resources or not | `bool` | `true` | no |
 | create\_ebs\_volume | #### EBS #### | `bool` | `false` | no |
@@ -91,7 +91,7 @@ No issue is creating limit on this module.
 | root\_volume\_size | Root volume size | `number` | `8` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
 | subnet\_id | The id of the subnet | `string` | `""` | no |
-| switch\_ip\_internally | Bool to switch ip internally | `bool` | `true` | no |
+| switch\_ip\_internally | Bool to switch ip internally | `bool` | `false` | no |
 | tags | Map of tags | `map(string)` | `{}` | no |
 | volume\_path | The path of the EBS volume | `string` | `"/dev/xvdf"` | no |
 | vpc\_id | Custom vpc id - leave blank for deault | `string` | `""` | no |

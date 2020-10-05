@@ -87,7 +87,7 @@ resource "aws_s3_bucket" "logs" {
 locals {
   instance_family        = split(".", var.instance_type)[0]
   instance_size          = split(".", var.instance_type)[1]
-  instance_store_enabled = contains(["m5d", "m5ad", "m5dn", "r5dn", "r5d", "z1d", "c5d", "c3", "i3", "i3en"], local.instance_family)
+  instance_store_enabled = contains(["m5d", "m5ad", "m5dn", "r5dn", "r5d", "z1d", "c5d", "c5ad", "c3", "i3", "i3en"], local.instance_family)
 
   minimum_volume_size = {
     mainnet = 320,
