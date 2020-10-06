@@ -85,11 +85,6 @@ variable "public_ip" {
 //}
 
 
-data "aws_eip" "public_ip" {
-  count     = var.public_ip == "" ? 0 : 1
-  public_ip = var.public_ip
-}
-
 module "ansible" {
   source           = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0"
   create           = var.create
@@ -120,13 +115,18 @@ module "ansible" {
   requirements_file_path = "${path.module}/ansible/requirements.yml"
 }
 
-resource "aws_eip_association" "main_ip" {
-  count       = var.public_ip != "" && var.associate_eip && var.create ? 1 : 0
-  instance_id = join("", aws_instance.this.*.id)
-  public_ip   = join("", data.aws_eip.public_ip.*.public_ip)
-
-  depends_on = [module.ansible]
-}
+//data "aws_eip" "public_ip" {
+//  count     = var.public_ip == "" ? 0 : 1
+//  public_ip = var.public_ip
+//}
+//
+//resource "aws_eip_association" "main_ip" {
+//  count       = var.public_ip != "" && var.associate_eip && var.create ? 1 : 0
+//  instance_id = join("", aws_instance.this.*.id)
+//  public_ip   = join("", data.aws_eip.public_ip.*.public_ip)
+//
+//  depends_on = [module.ansible]
+//}
 
 //module "ansible_service_start" {
 //  source = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.12.0"
