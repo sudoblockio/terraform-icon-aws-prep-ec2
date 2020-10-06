@@ -122,7 +122,3 @@ resource "aws_instance" "this" {
   tags = merge({ name = var.name }, local.tags)
 }
 
-
-data "aws_eip" "public_ip" {
-  public_ip = var.public_ip
-}
