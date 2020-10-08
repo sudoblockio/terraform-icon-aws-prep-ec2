@@ -1,5 +1,11 @@
+variable "create_iam" {
+  description = "Bool to create iam role"
+  type        = bool
+  default     = false
+}
+
 resource "aws_iam_role" "this" {
-  count              = var.create ? 1 : 0
+  count              = var.create && var.create_iam ? 1 : 0
   name               = "${title(var.name)}Role${title(random_pet.this.id)}"
   assume_role_policy = <<EOF
 {
@@ -21,7 +27,7 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "this" {
-  count = var.create ? 1 : 0
+  count = var.create && var.create_iam ? 1 : 0
   name  = "${title(var.name)}InstanceProfile${title(random_pet.this.id)}"
   role  = join("", aws_iam_role.this.*.name)
 }
@@ -30,7 +36,7 @@ data "aws_caller_identity" "this" {}
 data "aws_region" "this" {}
 
 resource "aws_iam_policy" "eip_attach_policy" {
-  count = var.switch_ip_internally && var.create ? 1 : 0
+  count = var.switch_ip_internally && var.create && var.create_iam ? 1 : 0
 
   name   = "${title(var.name)}EIPSwitch${title(random_pet.this.id)}"
   policy = <<-EOT
@@ -53,7 +59,7 @@ EOT
 }
 
 resource "aws_iam_role_policy_attachment" "eip_attach_policy" {
-  count      = var.switch_ip_internally && var.create ? 1 : 0
+  count      = var.switch_ip_internally && var.create && var.create_iam ? 1 : 0
   role       = join("", aws_iam_role.this.*.id)
-  policy_arn = aws_iam_policy.eip_attach_policy.*.arn[0]
+  policy_arn = join("", aws_iam_policy.eip_attach_policy.*.arn)
 }

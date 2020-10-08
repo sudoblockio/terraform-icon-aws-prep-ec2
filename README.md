@@ -64,9 +64,10 @@ No issue is creating limit on this module.
 | additional\_security\_group\_ids | List of security groups | `list(string)` | `[]` | no |
 | ansible\_hardening | Run hardening roles | `bool` | `false` | no |
 | associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `false` | no |
-| cloudwatch\_enable | Enable CW | `bool` | `true` | no |
+| cloudwatch\_enable | Enable CW | `bool` | `false` | no |
 | create | Boolean to create resources or not | `bool` | `true` | no |
 | create\_ebs\_volume | #### EBS #### | `bool` | `false` | no |
+| create\_iam | Bool to create iam role | `bool` | `false` | no |
 | create\_sg | Bool for create security group | `bool` | `true` | no |
 | endpoint\_url | API endpoint to sync off of - can be citizen node or leave blank for solidwallet.io | `string` | `""` | no |
 | instance\_type | Instance type | `string` | `"t3.small"` | no |

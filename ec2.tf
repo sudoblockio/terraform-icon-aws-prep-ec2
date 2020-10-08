@@ -81,16 +81,8 @@ locals {
   tags = merge(var.tags, { Name = var.name })
 }
 
-
 locals {
   logging_bucket_name = var.logging_bucket_name == "" ? "logs-${data.aws_caller_identity.this.account_id}" : var.logging_bucket_name
-}
-
-resource "aws_s3_bucket" "logs" {
-  count  = var.logs_bucket_enable && var.create ? 1 : 0
-  bucket = local.logging_bucket_name
-  acl    = "private"
-  tags   = local.tags
 }
 
 locals {
