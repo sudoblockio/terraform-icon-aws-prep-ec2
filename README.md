@@ -64,6 +64,8 @@ No issue is creating limit on this module.
 | additional\_security\_group\_ids | List of security groups | `list(string)` | `[]` | no |
 | ansible\_hardening | Run hardening roles | `bool` | `false` | no |
 | associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `false` | no |
+| bastion\_ip | Optional IP for bastion - blank for no bastion | `string` | `""` | no |
+| bastion\_user | Optional bastion user - blank for no bastion | `string` | `""` | no |
 | cloudwatch\_enable | Enable CW | `bool` | `false` | no |
 | create | Boolean to create resources or not | `bool` | `true` | no |
 | create\_ebs\_volume | #### EBS #### | `bool` | `false` | no |
