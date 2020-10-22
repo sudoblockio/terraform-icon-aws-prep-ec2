@@ -1,17 +1,10 @@
 package test
 
 import (
-	"fmt"
 	"github.com/gruntwork-io/terratest/modules/aws"
-	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
-	"github.com/gruntwork-io/terratest/modules/retry"
-	"github.com/gruntwork-io/terratest/modules/ssh"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
-	"strconv"
-	"strings"
 	"testing"
-	"time"
 )
 
 func TestDefaultVpc(t *testing.T) {
