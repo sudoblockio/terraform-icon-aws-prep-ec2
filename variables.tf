@@ -4,12 +4,6 @@ variable "create" {
   default     = true
 }
 
-//variable "minimum_specs" {
-//  description = "Boolean to use minimum specs"
-//  type        = bool
-//  default     = false
-//}
-
 ########
 # Label
 ########

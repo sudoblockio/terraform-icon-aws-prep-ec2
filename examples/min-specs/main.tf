@@ -59,8 +59,6 @@ resource "aws_security_group" "this" {
 module "defaults" {
   source = "../.."
 
-  minimum_specs = true
-
   public_ip = module.registration.public_ip
 
   private_key_path = var.private_key_path

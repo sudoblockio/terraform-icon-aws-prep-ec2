@@ -26,8 +26,6 @@ For Terraform v0.12.0+
 module "defaults" {
   source = "github.com/insight-infrastructure/terraform-icon-aws-prep.git?ref=master"
 
-  minimum_specs = true
-
   public_ip = module.registration.public_ip
 
   private_key_path = var.private_key_path
