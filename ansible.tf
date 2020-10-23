@@ -64,24 +64,6 @@ variable "public_ip" {
   default     = ""
 }
 
-//variable "private_key_path" {
-//  description = "Path to the private ssh key"
-//  type        = string
-//  default     = ""
-//}
-//
-//variable "playbook_file_path" {
-//  description = "The path to the playbook"
-//  type        = string
-//  default     = ""
-//}
-//
-//variable "user" {
-//  description = "The user for configuring node with ansible"
-//  type        = string
-//  default     = "ubuntu"
-//}
-
 variable "bastion_user" {
   description = "Optional bastion user - blank for no bastion"
   type        = string
