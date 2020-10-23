@@ -17,6 +17,9 @@ module "registration" {
   source       = "github.com/insight-infrastructure/terraform-aws-icon-registration.git"
   network_name = var.network_name
 
+  enable_testing = true
+
+
   organization_name    = "Insight-CI-default-vpc"
   organization_country = "USA"
   organization_email   = "fake@gmail.com"

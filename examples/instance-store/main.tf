@@ -14,6 +14,8 @@ module "registration" {
   source       = "github.com/insight-infrastructure/terraform-aws-icon-registration.git?ref=v0.1.0"
   network_name = "zicon"
 
+  enable_testing = true
+
   organization_name    = "Insight-CI1"
   organization_country = "USA"
   organization_email   = "fake@gmail.com"
