@@ -43,8 +43,8 @@ module "defaults" {
   instance_type = "i3.large"
   create_sg     = true
 
-  keystore_path     = module.registration.operator_wallet_path
-  keystore_password = module.registration.operator_password
+  operator_keystore_path     = module.registration.operator_wallet_path
+  operator_keystore_password = module.registration.operator_password
   playbook_vars = {
     sync_db = true
   }
