@@ -7,21 +7,18 @@ module "default_vpc" {
 }
 
 locals {
-  keystore_path = "${path.cwd}/../../test/fixtures/keystore-min-specs"
+  keystore_path = "${path.cwd}/keystore-min-specs"
 }
 
 module "registration" {
-  source       = "github.com/insight-infrastructure/terraform-aws-icon-registration.git?ref=v0.1.0"
+  source       = "github.com/insight-infrastructure/terraform-aws-icon-registration.git"
   network_name = "zicon"
-
   enable_testing = true
-
   organization_name    = "Insight-CI1"
   organization_country = "USA"
   organization_email   = "fake@gmail.com"
   organization_city    = "CircleCI"
   organization_website = "https://google.com"
-
   keystore_password = "testing1."
   keystore_path     = local.keystore_path
 }
@@ -58,10 +55,15 @@ resource "aws_security_group" "this" {
   }
 }
 
+resource "random_pet" "this" {length = 2}
+
 module "defaults" {
   source = "../.."
 
   public_ip = module.registration.public_ip
+  name = random_pet.this.id
+
+  network_name = "zicon"
 
   private_key_path = var.private_key_path
   public_key_path  = var.public_key_path
