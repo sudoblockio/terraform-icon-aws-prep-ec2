@@ -1,19 +1,14 @@
-# terraform-icon-aws-prep
+# terraform-icon-aws-prep-ec2
 
 This module is a WIP until it is integrated into a `terragrunt` scaffolding.
 
 ## Features
 
-This module sets up a node on ICON Blockchain without any networking defaults. For examples on how to use it, see the
-`examples` directory. For the simplest and minimal specs, run with the `min_specs = true` variable.
+This module sets up a node on ICON Blockchain without any networking defaults. For examples on how to use it, see the `examples` directory. For the simplest and minimal specs, run with the `min_specs = true` variable.
 
-The module sets up an instance with several options for how to store the data. One can one large root volume (min specs),
-attach an EBS volume, or use the attached instance storage for the highest performance.
+The module sets up an instance with several options for how to store the data. One can one large root volume or use the attached instance storage for the highest performance.
 
-Further integrations with monitoring, logging and alarms with permissioned instance profiles are being developed.
-
-The module calls [ansible-role-icon-prep](https://github.com/insight-infrastructure/ansible-role-icon-prep) from within
-the module and exposed configuration settings as terraform variables.
+The module calls [ansible-role-icon-prep](https://github.com/geometry-infra/ansible-role-icon-prep) from within the module and exposed configuration settings as terraform variables.
 
 ## Terraform Versions
 
@@ -24,7 +19,7 @@ For Terraform v0.12.0+
 *Minimum specs : simplest example*
 ```terraform
 module "defaults" {
-  source = "github.com/insight-infrastructure/terraform-icon-aws-prep.git?ref=master"
+  source = "github.com/geometry-infra/terraform-icon-aws-prep-ec2.git?ref=master"
 
   public_ip = module.registration.public_ip
 
@@ -41,8 +36,8 @@ module "defaults" {
 
 ## Examples
 
-- [min-specs](https://github.com/robc-io/terraform-icon-aws-prep/tree/master/examples/min-specs)
-- [instance-store](https://github.com/robc-io/terraform-icon-aws-prep/tree/master/examples/instance-store)
+- [min-specs](https://github.com/geometry-infra/terraform-icon-aws-prep-ec2/tree/master/examples/min-specs)
+- [instance-store](https://github.com/robc-io/terraform-icon-aws-prep-ec2/tree/master/examples/instance-store)
 
 ## Known  Issues
 No issue is creating limit on this module.
@@ -112,7 +107,9 @@ No issue is creating limit on this module.
 ## Testing
 This module has been packaged with terratest tests
 
-To run them:
+> Note: There is a bug where the registration module runs on a destroy, thus you can't run all the tests in the tests directory as they will fail on destroy leaving idle resources.  
+
+To run them normally:
 
 1. Install Go
 2. Run `make test-init` from the root of this repo
@@ -120,11 +117,7 @@ To run them:
 
 ## Authors
 
-Module managed by [robc-io](github.com/robc-io)
-
-## Credits
-
-- [Anton Babenko](https://github.com/antonbabenko)
+Module managed by Geometry Labs and [robcxyz](github.com/robcxyz). 
 
 ## License
 
