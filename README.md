@@ -53,7 +53,6 @@ No issue is creating limit on this module.
 | Name | Version |
 |------|---------|
 | aws | n/a |
-| random | n/a |
 
 ## Inputs
 
@@ -64,22 +63,20 @@ No issue is creating limit on this module.
 | associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `false` | no |
 | bastion\_ip | Optional IP for bastion - blank for no bastion | `string` | `""` | no |
 | bastion\_user | Optional bastion user - blank for no bastion | `string` | `""` | no |
-| cloudwatch\_enable | Enable CW | `bool` | `false` | no |
+| cloudwatch\_enable | Bool to enable cloudwatch agent. - WIP | `bool` | `false` | no |
 | create | Boolean to create resources or not | `bool` | `true` | no |
-| create\_ebs\_volume | #### EBS #### | `bool` | `false` | no |
-| create\_iam | Bool to create iam role | `bool` | `false` | no |
 | create\_sg | Bool for create security group | `bool` | `true` | no |
 | endpoint\_url | API endpoint to sync off of - can be citizen node or leave blank for solidwallet.io | `string` | `""` | no |
+| iam\_instance\_profile\_id | Instance profile ID | `string` | n/a | yes |
 | instance\_type | Instance type | `string` | `"t3.small"` | no |
 | key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
-| logging\_bucket\_name | Name of bucket for logs - blank for logs-<account-id> | `string` | `""` | no |
-| logs\_bucket\_enable | Create bucket to put logs | `bool` | `false` | no |
 | minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 70,<br>  "mainnet": 400,<br>  "testnet": 70,<br>  "zicon": 70<br>}</pre> | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | n/a | yes |
+| node\_type | The type of node, ie prep / citizen. Blank for prep. | `string` | `"prep"` | no |
 | operator\_keystore\_password | the path to your keystore | `string` | `""` | no |
 | operator\_keystore\_path | The keystore password | `string` | `""` | no |
 | playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
@@ -93,9 +90,8 @@ No issue is creating limit on this module.
 | root\_volume\_size | Root volume size | `number` | `8` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
 | subnet\_id | The id of the subnet | `string` | `""` | no |
-| switch\_ip\_internally | Bool to switch ip internally | `bool` | `false` | no |
 | tags | Map of tags | `map(string)` | `{}` | no |
-| volume\_path | The path of the EBS volume | `string` | `"/dev/xvdf"` | no |
+| verbose | Verbose ansible run | `bool` | `false` | no |
 | vpc\_id | Custom vpc id - leave blank for deault | `string` | `""` | no |
 
 ## Outputs
@@ -109,6 +105,7 @@ No issue is creating limit on this module.
 | key\_name | n/a |
 | network\_name | n/a |
 | public\_ip | n/a |
+| security\_group\_id | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

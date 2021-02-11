@@ -55,6 +55,12 @@ variable "subnet_id" {
   default     = ""
 }
 
+variable "iam_instance_profile_id" {
+  description = "Instance profile ID"
+  type        = string
+  default     = null
+}
+
 variable "minimum_volume_size_map" {
   description = "Map for networks with min volume size "
   type        = map(string)
@@ -65,8 +71,6 @@ variable "minimum_volume_size_map" {
     bicon   = 70
   }
 }
-
-resource "random_pet" "this" {}
 
 module "ami" {
   source = "github.com/insight-infrastructure/terraform-aws-ami.git?ref=v0.1.0"
@@ -79,10 +83,6 @@ resource "aws_key_pair" "this" {
 
 locals {
   tags = merge(var.tags, { Name = var.name })
-}
-
-locals {
-  logging_bucket_name = var.logging_bucket_name == "" ? "logs-${data.aws_caller_identity.this.account_id}" : var.logging_bucket_name
 }
 
 locals {
@@ -108,9 +108,9 @@ resource "aws_instance" "this" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = compact(concat(aws_security_group.this.*.id, var.additional_security_group_ids))
 
-  iam_instance_profile = join("", aws_iam_instance_profile.this.*.id)
+  iam_instance_profile = var.iam_instance_profile_id
   key_name             = var.public_key_path == "" ? var.key_name : aws_key_pair.this.*.key_name[0]
 
-  tags = merge({ name = var.name }, local.tags)
+  tags = local.tags
 }
 

@@ -51,7 +51,7 @@ resource "aws_security_group" "this" {
   count       = var.create_sg && var.create ? 1 : 0
   vpc_id      = var.vpc_id == "" ? null : var.vpc_id
   name        = "${var.name}-sg"
-  description = "SG for prysm node"
+  description = "ICON P-Rep node SG"
   tags        = var.tags
 }
 
@@ -86,4 +86,8 @@ resource "aws_security_group_rule" "prep_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = join("", aws_security_group.this.*.id)
   type              = "egress"
+}
+
+output "security_group_id" {
+  value = join("", aws_security_group.this.*.id)
 }

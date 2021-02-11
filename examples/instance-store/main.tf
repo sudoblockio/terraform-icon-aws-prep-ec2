@@ -11,16 +11,16 @@ locals {
 }
 
 module "registration" {
-  source       = "github.com/insight-infrastructure/terraform-aws-icon-registration.git"
-  network_name = "zicon"
-  enable_testing = true
+  source               = "github.com/insight-infrastructure/terraform-aws-icon-registration.git"
+  network_name         = "zicon"
+  enable_testing       = true
   organization_name    = "Insight-CI1"
   organization_country = "USA"
   organization_email   = "fake@gmail.com"
   organization_city    = "CircleCI"
   organization_website = "https://google.com"
-  keystore_password = "testing1."
-  keystore_path     = local.keystore_path
+  keystore_password    = "testing1."
+  keystore_path        = local.keystore_path
 }
 
 resource "aws_security_group" "this" {
@@ -55,20 +55,20 @@ resource "aws_security_group" "this" {
   }
 }
 
-resource "random_pet" "this" {length = 2}
+resource "random_pet" "this" { length = 2 }
 
 module "defaults" {
-  source = "../.."
-  name = random_pet.this.id
-  public_ip = module.registration.public_ip
-  network_name = "zicon"
-  private_key_path = var.private_key_path
-  public_key_path  = var.public_key_path
+  source                        = "../.."
+  name                          = random_pet.this.id
+  public_ip                     = module.registration.public_ip
+  network_name                  = "zicon"
+  private_key_path              = var.private_key_path
+  public_key_path               = var.public_key_path
   subnet_id                     = module.default_vpc.subnet_ids[0]
   additional_security_group_ids = [aws_security_group.this.id]
-  instance_type = "i3.large"
-  keystore_path     = local.keystore_path
-  keystore_password = "testing1."
+  instance_type                 = "i3.large"
+  keystore_path                 = local.keystore_path
+  keystore_password             = "testing1."
   playbook_vars = {
     sync_db = true
   }
