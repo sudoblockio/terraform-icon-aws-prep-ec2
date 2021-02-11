@@ -13,7 +13,7 @@
 
 - name: Mount
   mount:
-    path: /home/icon/data
+    path: /home/{{ admin_user }}/data
     src: "{{ volumes[0]['device_name'] }}"
     fstype: ext4
     state: mounted

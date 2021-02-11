@@ -2,8 +2,12 @@
 
 - src: dev-sec.os-hardening
   version: 5.2.1
+
 - src: dev-sec.ssh-hardening
   version: 7.0.0
-- src: insight_icon.icon_prep
-#  version: 1d41153939c8e815352a3555ee6e7d0b80f2206d
+
 - src: christiangda.amazon_cloudwatch_agent
+
+- src: geerlingguy.docker
+
+- src: insight_icon.icon_prep

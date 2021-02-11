@@ -1,3 +1,5 @@
+admin_user: ubuntu
+
 volumes: "{{ ephemeral_volumes[instance_type] }}"
 
 one_ephemeral_std:
@@ -30,6 +32,13 @@ ephemeral_volumes:
   c5d.8xlarge: "{{ one_ephemeral_nvme }}"
   c5d.12xlarge: "{{ one_ephemeral_nvme }}"
   c5d.18xlarge: "{{ two_ephemeral_nvme }}"
+  c5ad.large: "{{ one_ephemeral_nvme }}"
+  c5ad.xlarge: "{{ one_ephemeral_nvme }}"
+  c5ad.2xlarge: "{{ one_ephemeral_nvme }}"
+  c5ad.4xlarge: "{{ two_ephemeral_nvme }}"
+  c5ad.8xlarge: "{{ two_ephemeral_nvme }}"
+  c5ad.12xlarge: "{{ two_ephemeral_nvme }}"
+  c5ad.16xlarge: "{{ two_ephemeral_nvme }}"
   m5d.large: "{{ one_ephemeral_nvme }}"
   m5d.xlarge: "{{ one_ephemeral_nvme }}"
   m5d.2xlarge: "{{ one_ephemeral_nvme }}"
