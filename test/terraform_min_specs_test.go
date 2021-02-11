@@ -5,16 +5,19 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"testing"
+	"os"
 )
 
 func TestMinSpecs(t *testing.T) {
 	t.Parallel()
 
+    os.Remove("../examples/default-vpc/keystore-min-specs-operator")
 	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/min-specs")
 
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, exampleFolder)
+		terraform.
 		terraform.Destroy(t, terraformOptions)
 
 		keyPair := test_structure.LoadEc2KeyPair(t, exampleFolder)

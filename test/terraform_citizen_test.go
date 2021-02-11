@@ -5,14 +5,12 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"testing"
-	"os"
 )
 
 func TestDefaultVpc(t *testing.T) {
 	t.Parallel()
 
-    os.Remove("../examples/default-vpc/keystore-default-vpc-operator")
-	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/default-vpc")
+	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/citizen")
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, exampleFolder)
@@ -28,14 +26,6 @@ func TestDefaultVpc(t *testing.T) {
 		test_structure.SaveEc2KeyPair(t, exampleFolder, keyPair)
 
 		terraform.InitAndApply(t, terraformOptions)
-	})
-
-	test_structure.RunTestStage(t, "validate", func() {
-		terraformOptions := test_structure.LoadTerraformOptions(t, exampleFolder)
-		keyPair := test_structure.LoadEc2KeyPair(t, exampleFolder)
-
-		testExportersGoodHealth(t, terraformOptions, keyPair)
-		testApiEndpoint(t, terraformOptions)
 	})
 }
 

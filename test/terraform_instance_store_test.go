@@ -12,11 +12,13 @@ import (
 	"strings"
 	"testing"
 	"time"
+	"os"
 )
 
 func TestInstanceStore(t *testing.T) {
 	t.Parallel()
 
+    os.Remove("../examples/default-vpc/keystore-instance-store-operator")
 	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/instance-store")
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
