@@ -16,6 +16,24 @@ For Terraform v0.12.0+
 
 ## Usage
 
+#### Using Example 
+
+After installing the prerequisites:
+
+- If your node is already registered
+```shell script
+cd examples/registered-node
+terraform init
+terraform apply 
+```
+
+- If your node is not already registered
+
+*Modify the example per the network and registration as fit / contact Geometry Labs for help.*
+
+
+#### Terraform Module 
+
 *Minimum specs : simplest example*
 ```terraform
 module "defaults" {
@@ -37,7 +55,7 @@ module "defaults" {
 ## Examples
 
 - [min-specs](https://github.com/geometry-infra/terraform-icon-aws-prep-ec2/tree/master/examples/min-specs)
-- [instance-store](https://github.com/robc-io/terraform-icon-aws-prep-ec2/tree/master/examples/instance-store)
+- [instance-store](https://github.com/geometry-infra/terraform-icon-aws-prep-ec2/tree/master/examples/instance-store)
 
 ## Known  Issues
 No issue is creating limit on this module.
