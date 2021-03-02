@@ -100,7 +100,7 @@ No issue is creating limit on this module.
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  7100,<br>  9000,<br>  9100,<br>  9113,<br>  9115,<br>  8080<br>]</pre> | no |
 | root\_iops | n/a | `string` | n/a | yes |
-| root\_volume\_size | Root volume size | `number` | `8` | no |
+| root\_volume\_size | Root volume size | `number` | `20` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
 | subnet\_id | The id of the subnet | `string` | `""` | no |
 | tags | Map of tags | `map(string)` | `{}` | no |
