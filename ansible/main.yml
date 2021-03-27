@@ -21,7 +21,7 @@
     - role: geerlingguy.docker
 
 #    - icon-prep
-    - insight_icon.icon_prep
+    - geometrylabs.icon_prep
 
   vars:
     docker_users:
