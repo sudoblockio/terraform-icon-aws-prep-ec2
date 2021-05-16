@@ -52,7 +52,7 @@ resource "aws_security_group" "this" {
   vpc_id      = var.vpc_id == "" ? null : var.vpc_id
   name        = "${var.name}-sg"
   description = "ICON P-Rep node SG"
-  tags        = var.tags
+  tags        = local.tags
 }
 
 resource "aws_security_group_rule" "public_ports" {

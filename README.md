@@ -61,16 +61,38 @@ module "defaults" {
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | aws | n/a |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| ami | github.com/insight-infrastructure/terraform-aws-ami.git?ref=v0.1.0 |  |
+| ansible_associate_eip | github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0 |  |
+| ansible_no_associate_eip | github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0 |  |
+
+## Resources
+
+| Name |
+|------|
+| [aws_eip_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) |
+| [aws_instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) |
+| [aws_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) |
+| [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
+| [aws_security_group_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | additional\_security\_group\_ids | List of security groups | `list(string)` | `[]` | no |
 | ansible\_hardening | Run hardening roles | `bool` | `false` | no |
 | associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `false` | no |
@@ -80,12 +102,12 @@ No issue is creating limit on this module.
 | create | Boolean to create resources or not | `bool` | `true` | no |
 | create\_sg | Bool for create security group | `bool` | `true` | no |
 | endpoint\_url | API endpoint to sync off of - can be citizen node or leave blank for solidwallet.io | `string` | `""` | no |
-| iam\_instance\_profile\_id | Instance profile ID | `string` | n/a | yes |
+| iam\_instance\_profile\_id | Instance profile ID | `string` | `null` | no |
 | instance\_type | Instance type | `string` | `"t3.small"` | no |
 | key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
-| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 70,<br>  "mainnet": 440,<br>  "testnet": 70,<br>  "zicon": 70<br>}</pre> | no |
+| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 70,<br>  "mainnet": 460,<br>  "testnet": 70,<br>  "zicon": 70<br>}</pre> | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | n/a | yes |
@@ -99,7 +121,7 @@ No issue is creating limit on this module.
 | public\_ip | The public IP of the elastic ip to attach to active instance | `string` | `""` | no |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  7100,<br>  9000,<br>  9100,<br>  9113,<br>  9115,<br>  8080<br>]</pre> | no |
-| root\_iops | n/a | `string` | n/a | yes |
+| root\_iops | n/a | `string` | `null` | no |
 | root\_volume\_size | Root volume size | `number` | `20` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
 | subnet\_id | The id of the subnet | `string` | `""` | no |
@@ -119,7 +141,6 @@ No issue is creating limit on this module.
 | network\_name | n/a |
 | public\_ip | n/a |
 | security\_group\_id | n/a |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Testing

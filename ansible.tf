@@ -127,7 +127,7 @@ module "ansible_associate_eip" {
 
 module "ansible_no_associate_eip" {
   source                 = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0"
-  create                 = ! var.associate_eip
+  create                 = !var.associate_eip
   ip                     = join("", aws_instance.this.*.public_ip)
   user                   = "ubuntu"
   private_key_path       = pathexpand(var.private_key_path)
