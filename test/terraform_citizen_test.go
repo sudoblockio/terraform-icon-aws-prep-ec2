@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestDefaultVpc(t *testing.T) {
+func TestCitizen(t *testing.T) {
 	t.Parallel()
 
 	exampleFolder := test_structure.CopyTerraformFolderToTemp(t, "../", "examples/citizen")

@@ -1,0 +1,45 @@
+name: Integration Tests
+
+on: push
+
+jobs:
+  go-tests:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        tf_tests:
+          - TestCitizen
+          - TestDefaultVpc
+          - TestInstanceStore
+          - TestMinSpecs
+
+    name: Run Terratest Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+
+      - name: Download Go Modules
+        run: go mod download
+
+      - uses: autero1/action-terraform@v1.0.0
+        with:
+          terraform_version: 0.14.11
+      - name: Run tests - TF14
+        run: go test ./test -v --run ${{ matrix.tf_tests }} -timeout 45m
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
+
+      - uses: autero1/action-terraform@v1.0.0
+        with:
+          terraform_version: 0.15.3
+      - name: Run tests - TF15
+        run: go test ./test -v --run ${{ matrix.tf_tests }} -timeout 45m
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
