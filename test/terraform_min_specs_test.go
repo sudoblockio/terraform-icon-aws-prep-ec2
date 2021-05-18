@@ -17,7 +17,6 @@ func TestMinSpecs(t *testing.T) {
 
 	defer test_structure.RunTestStage(t, "teardown", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, exampleFolder)
-		terraform.
 		terraform.Destroy(t, terraformOptions)
 
 		keyPair := test_structure.LoadEc2KeyPair(t, exampleFolder)
