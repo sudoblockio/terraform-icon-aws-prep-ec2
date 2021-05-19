@@ -27,7 +27,11 @@ jobs:
         run: go mod download
 
       - name: jmespath error
-        run: sudo apt-get install -y python-jmespath
+        run: |
+          pip3 install jmespath
+#          sudo apt-get update
+#          sudo apt-get upgrade -y
+#          sudo apt-get install -y python-jmespath
 
       - uses: autero1/action-terraform@v1.0.0
         with:
