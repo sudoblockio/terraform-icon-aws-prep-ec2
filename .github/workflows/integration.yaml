@@ -28,8 +28,17 @@ jobs:
 
       - name: jmespath error
         run: |
+          sudo -A apt-get install -y \
+            libtool \
+            libffi-dev \
+            libgmp-dev \
+            libyaml-cpp-dev \
+            python3-dev \
+            libsecp256k1-dev
           pip uninstall ansible
-          pip3 install jmespath ansible
+          pip3 install jmespath ansible preptools
+
+
 
       - uses: autero1/action-terraform@v1.0.0
         with:
