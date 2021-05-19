@@ -26,8 +26,8 @@ jobs:
       - name: Download Go Modules
         run: go mod download
 
-      - name: Download Pip Deps
-        run: pip install jmespath
+      - name: jmespath error
+        run: sudo apt-get install python-jmespath
 
       - uses: autero1/action-terraform@v1.0.0
         with:
