@@ -102,6 +102,7 @@ No requirements.
 | create | Boolean to create resources or not | `bool` | `true` | no |
 | create\_sg | Bool for create security group | `bool` | `true` | no |
 | endpoint\_url | API endpoint to sync off of - can be citizen node or leave blank for solidwallet.io | `string` | `""` | no |
+| fastest\_start | Fast sync option. | `string` | `"yes"` | no |
 | iam\_instance\_profile\_id | Instance profile ID | `string` | `null` | no |
 | instance\_type | Instance type | `string` | `"t3.small"` | no |
 | key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |

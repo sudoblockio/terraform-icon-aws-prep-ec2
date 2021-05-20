@@ -65,6 +65,8 @@ module "defaults" {
   additional_security_group_ids = [aws_security_group.this.id]
   keystore_path                 = var.keystore_path
   keystore_password             = var.keystore_password
+
+  fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
 }
 
 output "public_ip" {
