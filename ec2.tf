@@ -65,7 +65,7 @@ variable "minimum_volume_size_map" {
   description = "Map for networks with min volume size "
   type        = map(string)
   default = {
-    mainnet = 460,
+    mainnet = 480,
     testnet = 70
     zicon   = 70
     bicon   = 70
