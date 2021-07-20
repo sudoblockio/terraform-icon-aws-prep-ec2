@@ -66,9 +66,10 @@ variable "minimum_volume_size_map" {
   type        = map(string)
   default = {
     mainnet = 480,
-    testnet = 70
-    zicon   = 70
-    bicon   = 70
+    testnet = 150
+    zicon   = 150
+    bicon   = 150
+    sejong   = 50
   }
 }
 
