@@ -108,7 +108,7 @@ No requirements.
 | key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
-| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 70,<br>  "mainnet": 460,<br>  "testnet": 70,<br>  "zicon": 70<br>}</pre> | no |
+| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 70,<br>  "mainnet": 500,<br>  "testnet": 70,<br>  "zicon": 70<br>}</pre> | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | n/a | yes |
