@@ -20,6 +20,6 @@ variable "tags" {
 }
 
 variable "network_name" {
-  description = "The network name, ie kusama / mainnet"
+  description = "The network name, ie mainnet, zicon, bicon, testnet"
   type        = string
 }
