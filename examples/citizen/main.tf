@@ -28,9 +28,11 @@ module "defaults" {
 
   //  keystore_path     = "${path.cwd}/keystore"
   //  keystore_password = "citizen-1"
-  playbook_vars = {
-    sync_db = true
-  }
+  //  playbook_vars = {
+  //    sync_db = true
+  //  }
+
+  fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
 }
 
 output "public_ip" {

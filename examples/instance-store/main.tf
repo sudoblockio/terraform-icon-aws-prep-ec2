@@ -72,4 +72,6 @@ module "defaults" {
   playbook_vars = {
     sync_db = true
   }
+
+  fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
 }

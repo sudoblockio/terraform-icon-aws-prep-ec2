@@ -50,6 +50,8 @@ module "defaults" {
     sync_db            = true
     enable_update_cron = true
   }
+
+  fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
 }
 
 output "operator_keystore_path" {

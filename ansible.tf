@@ -63,6 +63,13 @@ variable "endpoint_url" {
   default     = ""
 }
 
+variable "fastest_start" {
+  description = "Fast sync option."
+  type        = string
+  default     = "yes"
+}
+
+
 variable "public_ip" {
   description = "The public IP of the elastic ip to attach to active instance"
   type        = string
@@ -100,6 +107,7 @@ locals {
     this_instance_id       = join("", aws_instance.this.*.id),
     dhcp_ip                = join("", aws_instance.this.*.public_ip),
     ansible_hardening      = var.ansible_hardening,
+    fastest_start          = var.fastest_start
   }, var.playbook_vars)
 }
 

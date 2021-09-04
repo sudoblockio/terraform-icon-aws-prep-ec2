@@ -73,4 +73,6 @@ module "defaults" {
 
   keystore_path     = local.keystore_path
   keystore_password = "testing1."
+
+  fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
 }
