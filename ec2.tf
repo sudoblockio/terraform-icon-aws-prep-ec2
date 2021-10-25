@@ -43,11 +43,16 @@ variable "public_key_path" {
   type        = string
 }
 
+variable "key_pair_name" {
+  description = "Defaults to basename ssh key"
+  type        = string
+  default     = ""
+}
+
 variable "private_key_path" {
   description = "The path to the private ssh key"
   type        = string
 }
-
 
 variable "subnet_id" {
   description = "The id of the subnet"
@@ -69,7 +74,7 @@ variable "minimum_volume_size_map" {
     testnet = 150
     zicon   = 150
     bicon   = 150
-    sejong   = 50
+    sejong  = 50
   }
 }
 
@@ -80,6 +85,7 @@ module "ami" {
 resource "aws_key_pair" "this" {
   count      = var.public_key_path != "" && var.create ? 1 : 0
   public_key = file(pathexpand(var.public_key_path))
+  key_name   = var.key_name == "" ? basename(var.private_key_path) : var.key_name
   tags       = local.tags
 }
 

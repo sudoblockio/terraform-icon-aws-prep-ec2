@@ -20,8 +20,12 @@
 
     - role: geerlingguy.docker
 
-#    - icon-prep
-    - geometrylabs.icon_prep
+    - role: fubarhouse.golang
+      vars:
+        go_version: 1.16.2
+
+#    - role: geometrylabs.icon_prep
+    - role: icon-prep
 
   vars:
     docker_users:

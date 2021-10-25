@@ -4,15 +4,19 @@ provider "aws" {
   region = var.aws_region
 }
 
+variable "vpc_id" {}
 variable "private_key_path" {}
 variable "public_key_path" {}
-variable "public_ip" {}
+#variable "public_ip" {}
+
+resource "aws_eip" "test" {}
+
 variable "network_name" {
   description = "Options - 'mainnet', 'zicon', 'bicon', 'testnet'."
 }
 variable "node_name" {}
-variable "keystore_path" {}
-variable "keystore_password" {}
+#variable "keystore_path" {}
+#variable "keystore_password" {}
 
 
 module "default_vpc" {
@@ -20,7 +24,9 @@ module "default_vpc" {
 }
 
 resource "aws_security_group" "this" {
-  vpc_id = module.default_vpc.vpc_id
+  #  vpc_id = module.default_vpc.vpc_id
+
+  vpc_id = var.vpc_id
 
   dynamic "ingress" {
     for_each = [
@@ -51,20 +57,28 @@ resource "aws_security_group" "this" {
   }
 }
 
+variable "subnet_id" {}
+
 module "defaults" {
   source = "../.."
 
   associate_eip = true
 
-  public_ip                     = var.public_ip
+  #  public_ip                     = var.public_ip
+  public_ip                     = aws_eip.test.public_ip
   name                          = var.node_name
   network_name                  = var.network_name
   private_key_path              = var.private_key_path
   public_key_path               = var.public_key_path
-  subnet_id                     = module.default_vpc.subnet_ids[0]
+  subnet_id                     = var.subnet_id #  module.default_vpc.subnet_ids[0]
   additional_security_group_ids = [aws_security_group.this.id]
-  keystore_path                 = var.keystore_path
-  keystore_password             = var.keystore_password
+
+  create_sg = false
+
+  keystore_path     = "${path.cwd}/keystore"
+  keystore_password = "foobar"
+  #  keystore_path                 = var.keystore_path
+  #  keystore_password             = var.keystore_password
 
   fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
 }

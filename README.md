@@ -1,10 +1,8 @@
 # terraform-icon-aws-prep-ec2
 
-This module is a WIP until it is integrated into a `terragrunt` scaffolding.
-
 ## Features
 
-This module sets up a node on ICON Blockchain without any networking defaults. For examples on how to use it, see the `examples` directory. For the simplest and minimal specs, run with the `min_specs = true` variable.
+This module sets up a ICON Blockchain 2.0 node without any networking defaults. For examples on how to use it, see the `examples` directory. For the simplest and minimal specs, run with the `min_specs = true` variable.
 
 The module sets up an instance with several options for how to store the data. One can one large root volume or use the attached instance storage for the highest performance.
 
@@ -106,22 +104,21 @@ No requirements.
 | iam\_instance\_profile\_id | Instance profile ID | `string` | `null` | no |
 | instance\_type | Instance type | `string` | `"t3.small"` | no |
 | key\_name | The key pair to import - leave blank to generate new keypair from pub/priv ssh key path | `string` | `""` | no |
+| key\_pair\_name | Defaults to basename ssh key | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
-| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 70,<br>  "mainnet": 500,<br>  "testnet": 70,<br>  "zicon": 70<br>}</pre> | no |
+| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 150,<br>  "mainnet": 500,<br>  "sejong": 50,<br>  "testnet": 150,<br>  "zicon": 150<br>}</pre> | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
-| network\_name | The network name, ie kusama / mainnet | `string` | n/a | yes |
+| network\_name | The network name, ie mainnet, zicon, bicon, testnet | `string` | n/a | yes |
 | node\_type | The type of node, ie prep / citizen. Blank for prep. | `string` | `"prep"` | no |
 | operator\_keystore\_password | the path to your keystore | `string` | `""` | no |
 | operator\_keystore\_path | The keystore password | `string` | `""` | no |
 | playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
-| private\_port\_cidrs | List of CIDR blocks for private ports | `list(string)` | <pre>[<br>  "172.31.0.0/16"<br>]</pre> | no |
-| private\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  9100,<br>  9113,<br>  9115,<br>  8080<br>]</pre> | no |
 | public\_ip | The public IP of the elastic ip to attach to active instance | `string` | `""` | no |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
-| public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  7100,<br>  9000,<br>  9100,<br>  9113,<br>  9115,<br>  8080<br>]</pre> | no |
+| public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  9080,<br>  8080<br>]</pre> | no |
 | root\_iops | n/a | `string` | `null` | no |
 | root\_volume\_size | Root volume size | `number` | `20` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |

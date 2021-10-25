@@ -15,30 +15,9 @@ variable "public_ports" {
   type        = list(number)
   default = [
     22,
-    7100,
-    9000,
-    9100,
-    9113,
-    9115,
+    9080,
     8080,
   ]
-}
-
-variable "private_ports" {
-  description = "List of publicly open ports"
-  type        = list(number)
-  default = [
-    9100,
-    9113,
-    9115,
-    8080,
-  ]
-}
-
-variable "private_port_cidrs" {
-  description = "List of CIDR blocks for private ports"
-  type        = list(string)
-  default     = ["172.31.0.0/16"]
 }
 
 variable "additional_security_group_ids" {
@@ -65,18 +44,6 @@ resource "aws_security_group_rule" "public_ports" {
   to_port           = var.public_ports[count.index]
   cidr_blocks       = ["0.0.0.0/0"]
 }
-
-resource "aws_security_group_rule" "private_ports" {
-  count = var.create_sg && var.create ? length(var.private_ports) : 0
-
-  type              = "ingress"
-  security_group_id = join("", aws_security_group.this.*.id)
-  protocol          = "tcp"
-  from_port         = var.private_ports[count.index]
-  to_port           = var.private_ports[count.index]
-  cidr_blocks       = var.private_port_cidrs
-}
-
 
 resource "aws_security_group_rule" "prep_egress" {
   count             = var.create_sg && var.create ? 1 : 0

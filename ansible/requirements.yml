@@ -10,4 +10,6 @@
 
 - src: geerlingguy.docker
 
+- src: fubarhouse.golang
+
 - src: geometrylabs.icon_prep

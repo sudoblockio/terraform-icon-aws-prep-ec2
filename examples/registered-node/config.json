@@ -1,0 +1,70 @@
+{
+  "nid": 14957720,
+  "db_type": "goleveldb",
+  "seed_addr": "",
+  "role": 2,
+  "concurrency_level": 1,
+  "node_cache": "none",
+  "children_limit": -1,
+  "nephews_limit": -1,
+  "channel": "default",
+  "secureSuites": "",
+  "secureAeads": "",
+  "waitTimeout": 0,
+  "maxTimeout": 0,
+  "txTimeout": 0,
+  "genesis": {
+    "accounts": [
+      {
+        "address": "hx47c7c3c76cb541c1d0234ab99f2eb482f1a6dc40",
+        "balance": "0x2961fff8ca4a62327800000",
+        "name": "god"
+      },
+      {
+        "address": "hx1000000000000000000000000000000000000000",
+        "balance": "0x0",
+        "name": "treasury"
+      }
+    ],
+    "chain": {
+      "validatorList": [
+        "hx47c7c3c76cb541c1d0234ab99f2eb482f1a6dc40"
+      ]
+    },
+    "message": "gochain generated genesis"
+  },
+  "chain_dir": "",
+  "p2p": "127.0.0.1:8080",
+  "p2p_listen": "",
+  "ee_socket": "",
+  "rpc_addr": ":9080",
+  "rpc_dump": false,
+  "rpc_debug": false,
+  "ee_instances": 1,
+  "engines": "python",
+  "key_store": {
+    "address": "hx47c7c3c76cb541c1d0234ab99f2eb482f1a6dc40",
+    "id": "5269a99d-f145-4b9b-a524-a46a1ceb0bc4",
+    "version": 3,
+    "coinType": "icx",
+    "crypto": {
+      "cipher": "aes-128-ctr",
+      "cipherparams": {
+        "iv": "5ff459e91a82625e3d6e77ea2aa7d536"
+      },
+      "ciphertext": "da7fe248512871c5d224ade8b58b0cf94d336463f237ae97447eb746d5bd33a9",
+      "kdf": "scrypt",
+      "kdfparams": {
+        "dklen": 32,
+        "n": 65536,
+        "r": 8,
+        "p": 1,
+        "salt": "ad4487c0738866c0"
+      },
+      "mac": "074a2973e8ab1951c05dc4d56ff8579bb45e17796139e853b230d05637ca91a4"
+    }
+  },
+  "key_password": "gochain",
+  "log_level": "debug",
+  "console_level": "trace"
+}
