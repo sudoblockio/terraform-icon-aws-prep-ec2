@@ -24,8 +24,8 @@
       vars:
         go_version: 1.16.2
 
-#    - role: geometrylabs.icon_prep
-    - role: icon-prep
+    - role: geometrylabs.icon_prep
+#    - role: icon-prep
 
   vars:
     docker_users:
