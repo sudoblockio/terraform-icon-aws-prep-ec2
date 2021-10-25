@@ -22,6 +22,7 @@ module "defaults" {
   node_type        = "citizen"
   private_key_path = var.private_key_path
   public_key_path  = var.public_key_path
+  key_name         = "citizen-test-${random_pet.this.id}"
 
   instance_type = "i3.large"
   create_sg     = true
