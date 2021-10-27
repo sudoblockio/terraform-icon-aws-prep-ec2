@@ -107,7 +107,7 @@ No requirements.
 | key\_pair\_name | Defaults to basename ssh key | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
-| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 150,<br>  "mainnet": 500,<br>  "sejong": 50,<br>  "testnet": 150,<br>  "zicon": 150<br>}</pre> | no |
+| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 150,<br>  "mainnet": 2000,<br>  "sejong": 50,<br>  "testnet": 150,<br>  "zicon": 150<br>}</pre> | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
 | network\_name | The network name, ie mainnet, zicon, bicon, testnet | `string` | n/a | yes |
