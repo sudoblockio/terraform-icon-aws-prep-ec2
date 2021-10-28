@@ -7,13 +7,9 @@ provider "aws" {
 variable "vpc_id" {}
 variable "private_key_path" {}
 variable "public_key_path" {}
-#variable "public_ip" {}
 
 resource "aws_eip" "test" {}
 
-variable "network_name" {
-  description = "Options - 'mainnet', 'zicon', 'bicon', 'testnet'."
-}
 variable "node_name" {}
 #variable "keystore_path" {}
 #variable "keystore_password" {}

@@ -12,4 +12,5 @@
 
 - src: fubarhouse.golang
 
-- src: geometrylabs.icon_prep
+- src: https://github.com/geometry-labs/ansible-role-icon-prep
+  version: origin/main
