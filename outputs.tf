@@ -7,11 +7,6 @@ output "dhcp_ip" {
   value = join("", aws_instance.this.*.public_ip)
 }
 
-output "public_ip" {
-  //  value = join("", aws_eip_association.main_ip.*.public_ip)
-  value = var.public_ip
-}
-
 output "instance_type" {
   value = var.instance_type
 }

@@ -133,7 +133,6 @@ No requirements.
 | instance\_type | n/a |
 | key\_name | n/a |
 | network\_name | n/a |
-| public\_ip | n/a |
 | security\_group\_id | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
