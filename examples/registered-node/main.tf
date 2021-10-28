@@ -58,10 +58,6 @@ variable "subnet_id" {}
 module "defaults" {
   source = "../.."
 
-  associate_eip = true
-
-  #  public_ip                     = var.public_ip
-  public_ip                     = aws_eip.test.public_ip
   name                          = var.node_name
   service                       = "Sejong"
   private_key_path              = var.private_key_path

@@ -17,14 +17,23 @@ resource "random_pet" "this" { length = 2 }
 
 module "defaults" {
   source           = "../.."
-  service          = "Sejong"
+  service          = "zicon"
   name             = "citizen-test-${random_pet.this.id}"
   node_type        = "citizen"
   private_key_path = var.private_key_path
   public_key_path  = var.public_key_path
   key_name         = "citizen-test-${random_pet.this.id}"
-  create_sg        = true
-  fastest_start    = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
+
+  instance_type = "i3.large"
+  create_sg     = true
+
+  //  keystore_path     = "${path.cwd}/keystore"
+  //  keystore_password = "citizen-1"
+  //  playbook_vars = {
+  //    sync_db = true
+  //  }
+
+  fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
 }
 
 output "public_ip" {

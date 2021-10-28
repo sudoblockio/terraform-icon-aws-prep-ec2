@@ -30,7 +30,7 @@
       vars:
         go_version: 1.16.2
 
-    - role: geometrylabs.icon_prep
+    - role: ansible-role-icon-prep
 #    - role: icon-prep
 
   vars:
