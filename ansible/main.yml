@@ -1,5 +1,10 @@
 - hosts: all
   become: true
+  pre_tasks:
+    - name: Run apt update before installing prerequisites
+      apt:
+        update_cache: yes
+
   roles:
     - role: setup
     
@@ -19,6 +24,7 @@
       when: ansible_hardening | default(false) | bool
 
     - role: geerlingguy.docker
+      update_cache: yes
 
     - role: fubarhouse.golang
       vars:

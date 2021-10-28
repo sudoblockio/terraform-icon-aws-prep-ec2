@@ -74,14 +74,12 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | ami | github.com/insight-infrastructure/terraform-aws-ami.git?ref=v0.1.0 |  |
-| ansible_associate_eip | github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0 |  |
-| ansible_no_associate_eip | github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0 |  |
+| ansible | github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0 |  |
 
 ## Resources
 
 | Name |
 |------|
-| [aws_eip_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip_association) |
 | [aws_instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) |
 | [aws_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) |
 | [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
@@ -93,7 +91,6 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | additional\_security\_group\_ids | List of security groups | `list(string)` | `[]` | no |
 | ansible\_hardening | Run hardening roles | `bool` | `false` | no |
-| associate\_eip | Boolean to determine if you should associate the ip when the instance has been configured | `bool` | `false` | no |
 | bastion\_ip | Optional IP for bastion - blank for no bastion | `string` | `""` | no |
 | bastion\_user | Optional bastion user - blank for no bastion | `string` | `""` | no |
 | cloudwatch\_enable | Bool to enable cloudwatch agent. - WIP | `bool` | `false` | no |
@@ -112,11 +109,8 @@ No requirements.
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
 | node\_type | The type of node, ie prep / citizen. Blank for prep. | `string` | `"prep"` | no |
-| operator\_keystore\_password | the path to your keystore | `string` | `""` | no |
-| operator\_keystore\_path | The keystore password | `string` | `""` | no |
 | playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
-| public\_ip | The public IP of the elastic ip to attach to active instance | `string` | `""` | no |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  9080,<br>  8080<br>]</pre> | no |
 | role\_number | 0 for citizen 3 for prep | `number` | `3` | no |

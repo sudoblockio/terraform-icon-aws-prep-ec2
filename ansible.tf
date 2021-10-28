@@ -1,5 +1,3 @@
-
-
 #########
 # Ansible
 #########
@@ -33,24 +31,6 @@ variable "keystore_password" {
   default     = ""
 }
 
-variable "operator_keystore_password" {
-  description = "the path to your keystore"
-  type        = string
-  default     = ""
-}
-
-variable "operator_keystore_path" {
-  description = "The keystore password"
-  type        = string
-  default     = ""
-}
-
-variable "associate_eip" {
-  description = "Boolean to determine if you should associate the ip when the instance has been configured"
-  type        = bool
-  default     = false
-}
-
 variable "verbose" {
   description = "Verbose ansible run"
   type        = bool
@@ -67,13 +47,6 @@ variable "fastest_start" {
   description = "Fast sync option."
   type        = string
   default     = "yes"
-}
-
-
-variable "public_ip" {
-  description = "The public IP of the elastic ip to attach to active instance"
-  type        = string
-  default     = ""
 }
 
 variable "bastion_user" {
@@ -107,8 +80,8 @@ variable "mig_endpoint" {
 
 locals {
   playbook_vars = merge({
-    keystore_path     = var.operator_keystore_path == "" ? var.keystore_path : var.operator_keystore_path
-    keystore_password = var.operator_keystore_password == "" ? var.keystore_password : var.operator_keystore_password
+    keystore_path     = var.keystore_path
+    keystore_password = var.keystore_password
 
     role_number  = var.role_number
     mig_endpoint = var.mig_endpoint
@@ -117,42 +90,11 @@ locals {
 
     instance_type          = var.instance_type,
     instance_store_enabled = local.instance_store_enabled,
-
-    #    node_type              = var.node_type
-    #    endpoint_url           = var.endpoint_url
-    #    cloudwatch_enable      = var.cloudwatch_enable
-    #    this_instance_id       = join("", aws_instance.this.*.id),
-    #    dhcp_ip                = join("", aws_instance.this.*.public_ip),
-    #    ansible_hardening      = var.ansible_hardening,
-    #    fastest_start          = var.fastest_start
   }, var.playbook_vars)
 }
 
-resource "aws_eip_association" "main_ip" {
-  count       = var.associate_eip && var.create ? 1 : 0
-  instance_id = join("", aws_instance.this.*.id)
-  public_ip   = var.public_ip
-}
-
-module "ansible_associate_eip" {
-  source = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0"
-
-  create                 = var.associate_eip
-  ip                     = join("", aws_eip_association.main_ip.*.public_ip)
-  user                   = "ubuntu"
-  private_key_path       = pathexpand(var.private_key_path)
-  verbose                = var.verbose
-  become                 = true
-  bastion_ip             = var.bastion_ip
-  bastion_user           = var.bastion_user
-  playbook_file_path     = "${path.module}/ansible/main.yml"
-  playbook_vars          = local.playbook_vars
-  requirements_file_path = "${path.module}/ansible/requirements.yml"
-}
-
-module "ansible_no_associate_eip" {
+module "ansible" {
   source                 = "github.com/insight-infrastructure/terraform-aws-ansible-playbook.git?ref=v0.14.0"
-  create                 = !var.associate_eip
   ip                     = join("", aws_instance.this.*.public_ip)
   user                   = "ubuntu"
   private_key_path       = pathexpand(var.private_key_path)
