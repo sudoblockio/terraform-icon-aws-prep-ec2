@@ -94,20 +94,37 @@ variable "node_type" {
   default     = "prep"
 }
 
+variable "role_number" {
+  description = "0 for citizen 3 for prep"
+  default     = 3
+  type        = number
+}
+
+variable "mig_endpoint" {
+  description = "icon 1.0 endpoint"
+  default     = ""
+}
+
 locals {
   playbook_vars = merge({
-    keystore_path          = var.operator_keystore_path == "" ? var.keystore_path : var.operator_keystore_path
-    keystore_password      = var.operator_keystore_password == "" ? var.keystore_password : var.operator_keystore_password
-    network_name           = var.network_name,
+    keystore_path     = var.operator_keystore_path == "" ? var.keystore_path : var.operator_keystore_path
+    keystore_password = var.operator_keystore_password == "" ? var.keystore_password : var.operator_keystore_password
+
+    role_number  = var.role_number
+    mig_endpoint = var.mig_endpoint
+
+    service = var.service,
+
     instance_type          = var.instance_type,
     instance_store_enabled = local.instance_store_enabled,
-    node_type              = var.node_type
-    endpoint_url           = var.endpoint_url
-    cloudwatch_enable      = var.cloudwatch_enable
-    this_instance_id       = join("", aws_instance.this.*.id),
-    dhcp_ip                = join("", aws_instance.this.*.public_ip),
-    ansible_hardening      = var.ansible_hardening,
-    fastest_start          = var.fastest_start
+
+    #    node_type              = var.node_type
+    #    endpoint_url           = var.endpoint_url
+    #    cloudwatch_enable      = var.cloudwatch_enable
+    #    this_instance_id       = join("", aws_instance.this.*.id),
+    #    dhcp_ip                = join("", aws_instance.this.*.public_ip),
+    #    ansible_hardening      = var.ansible_hardening,
+    #    fastest_start          = var.fastest_start
   }, var.playbook_vars)
 }
 

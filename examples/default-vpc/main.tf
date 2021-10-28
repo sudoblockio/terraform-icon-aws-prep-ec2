@@ -39,7 +39,7 @@ module "defaults" {
   source                     = "../.."
   name                       = random_pet.this.id
   public_ip                  = module.registration.public_ip
-  network_name               = var.network_name
+  service                    = var.network_name
   private_key_path           = var.private_key_path
   public_key_path            = var.public_key_path
   instance_type              = "t3a.small"

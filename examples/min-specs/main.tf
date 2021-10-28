@@ -63,7 +63,7 @@ module "defaults" {
   public_ip = module.registration.public_ip
   name      = random_pet.this.id
 
-  network_name = "zicon"
+  service = "zicon"
 
   private_key_path = var.private_key_path
   public_key_path  = var.public_key_path

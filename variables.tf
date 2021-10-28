@@ -19,7 +19,8 @@ variable "tags" {
   default     = {}
 }
 
-variable "network_name" {
-  description = "The network name, ie mainnet, zicon, bicon, testnet"
+variable "service" {
+  description = "The network name, ie MainNet, Sejong"
   type        = string
+  default     = "MainNet"
 }

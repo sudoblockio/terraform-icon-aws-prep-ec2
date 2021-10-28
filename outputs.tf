@@ -17,7 +17,7 @@ output "instance_type" {
 }
 
 output "network_name" {
-  value = var.network_name
+  value = var.service
 }
 
 output "instance_id" {

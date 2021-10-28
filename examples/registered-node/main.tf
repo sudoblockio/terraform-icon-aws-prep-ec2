@@ -67,7 +67,7 @@ module "defaults" {
   #  public_ip                     = var.public_ip
   public_ip                     = aws_eip.test.public_ip
   name                          = var.node_name
-  network_name                  = var.network_name
+  service                       = var.network_name
   private_key_path              = var.private_key_path
   public_key_path               = var.public_key_path
   subnet_id                     = var.subnet_id #  module.default_vpc.subnet_ids[0]

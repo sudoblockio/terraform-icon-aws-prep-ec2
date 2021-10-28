@@ -107,10 +107,10 @@ No requirements.
 | key\_pair\_name | Defaults to basename ssh key | `string` | `""` | no |
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
+| mig\_endpoint | icon 1.0 endpoint | `string` | `""` | no |
 | minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "bicon": 150,<br>  "mainnet": 2000,<br>  "sejong": 50,<br>  "testnet": 150,<br>  "zicon": 150<br>}</pre> | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
-| network\_name | The network name, ie mainnet, zicon, bicon, testnet | `string` | n/a | yes |
 | node\_type | The type of node, ie prep / citizen. Blank for prep. | `string` | `"prep"` | no |
 | operator\_keystore\_password | the path to your keystore | `string` | `""` | no |
 | operator\_keystore\_path | The keystore password | `string` | `""` | no |
@@ -119,9 +119,11 @@ No requirements.
 | public\_ip | The public IP of the elastic ip to attach to active instance | `string` | `""` | no |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
 | public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  9080,<br>  8080<br>]</pre> | no |
+| role\_number | 0 for citizen 3 for prep | `number` | `3` | no |
 | root\_iops | n/a | `string` | `null` | no |
 | root\_volume\_size | Root volume size | `number` | `20` | no |
 | root\_volume\_type | n/a | `string` | `"gp2"` | no |
+| service | The network name, ie MainNet, Sejong | `string` | `"MainNet"` | no |
 | subnet\_id | The id of the subnet | `string` | `""` | no |
 | tags | Map of tags | `map(string)` | `{}` | no |
 | verbose | Verbose ansible run | `bool` | `false` | no |

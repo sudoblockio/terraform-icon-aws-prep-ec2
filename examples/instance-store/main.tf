@@ -61,7 +61,7 @@ module "defaults" {
   source                        = "../.."
   name                          = random_pet.this.id
   public_ip                     = module.registration.public_ip
-  network_name                  = "zicon"
+  service                       = "zicon"
   private_key_path              = var.private_key_path
   public_key_path               = var.public_key_path
   subnet_id                     = module.default_vpc.subnet_ids[0]

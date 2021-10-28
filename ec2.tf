@@ -98,7 +98,7 @@ locals {
   instance_size          = split(".", var.instance_type)[1]
   instance_store_enabled = contains(["m5d", "m5ad", "m5dn", "r5dn", "r5d", "z1d", "c5d", "c5ad", "c3", "i3", "i3en"], local.instance_family)
 
-  root_volume_size = local.instance_store_enabled ? var.root_volume_size : var.root_volume_size == 20 ? lookup(var.minimum_volume_size_map, var.network_name) : var.root_volume_size
+  root_volume_size = local.instance_store_enabled ? var.root_volume_size : var.root_volume_size == 20 ? lookup(var.minimum_volume_size_map, var.service) : var.root_volume_size
   volume_path      = "/dev/xvdf"
 }
 

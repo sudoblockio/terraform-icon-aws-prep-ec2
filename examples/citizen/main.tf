@@ -17,7 +17,7 @@ resource "random_pet" "this" { length = 2 }
 
 module "defaults" {
   source           = "../.."
-  network_name     = "zicon"
+  service          = "zicon"
   name             = "citizen-test-${random_pet.this.id}"
   node_type        = "citizen"
   private_key_path = var.private_key_path
