@@ -67,7 +67,7 @@ module "defaults" {
   #  public_ip                     = var.public_ip
   public_ip                     = aws_eip.test.public_ip
   name                          = var.node_name
-  service                       = var.network_name
+  service                       = "Sejong"
   private_key_path              = var.private_key_path
   public_key_path               = var.public_key_path
   subnet_id                     = var.subnet_id #  module.default_vpc.subnet_ids[0]
@@ -81,8 +81,4 @@ module "defaults" {
   #  keystore_password             = var.keystore_password
 
   fastest_start = "no" # ONLY FOR TESTING - Remove / set to "yes" for actual use
-}
-
-output "public_ip" {
-  value = module.defaults.public_ip
 }
