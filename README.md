@@ -112,7 +112,7 @@ No requirements.
 | playbook\_vars | Additional playbook vars | `map(string)` | `{}` | no |
 | private\_key\_path | The path to the private ssh key | `string` | n/a | yes |
 | public\_key\_path | The path to the public ssh key | `string` | n/a | yes |
-| public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  9080,<br>  8080<br>]</pre> | no |
+| public\_ports | List of publicly open ports | `list(number)` | <pre>[<br>  22,<br>  9000,<br>  7100<br>]</pre> | no |
 | role\_number | 0 for citizen 3 for prep | `number` | `3` | no |
 | root\_iops | n/a | `string` | `null` | no |
 | root\_volume\_size | Root volume size | `number` | `20` | no |

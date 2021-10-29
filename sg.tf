@@ -15,8 +15,8 @@ variable "public_ports" {
   type        = list(number)
   default = [
     22,
-    9080,
-    8080,
+    9000,
+    7100,
   ]
 }
 
