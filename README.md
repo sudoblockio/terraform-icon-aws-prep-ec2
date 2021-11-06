@@ -105,7 +105,7 @@ No requirements.
 | keystore\_password | The password to the keystore | `string` | `""` | no |
 | keystore\_path | The path to the keystore | `string` | `""` | no |
 | mig\_endpoint | icon 1.0 endpoint | `string` | `""` | no |
-| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "MainNet": 1500,<br>  "Sejong": 150<br>}</pre> | no |
+| minimum\_volume\_size\_map | Map for networks with min volume size | `map(string)` | <pre>{<br>  "MainNet": 1400,<br>  "Sejong": 150<br>}</pre> | no |
 | monitoring | Boolean for cloudwatch | `bool` | `false` | no |
 | name | The name for the label | `string` | `"prep"` | no |
 | node\_type | The type of node, ie prep / citizen. Blank for prep. | `string` | `"prep"` | no |
